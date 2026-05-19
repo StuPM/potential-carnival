@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Unique list of media
+model Media {
+  id String @id //film-tmdbID
+  type String // Film, Book
+  createdAt DateTime @default(now())
+
+  film Films?
+  // book Books?
+  mediaHistory MediaHistory[]
+}
+
+
+// Unique list of films
+model Films {
+  id String @id
+  tmdbId Int @unique
+  title String 
+  originalTitle String
+  originalLanguage String
+  overview String
+  posterPath String @unique
+  releaseDate DateTime
+  watchedCount Int @default(1)
+
+  media Media @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+
+// Complete list of media that has been consumed
+model MediaHistory {
+  id String @id @default(cuid()) 
+  mediaId String 
+  finishedAt DateTime
+  rating Int 
+  location String? // Only if film, cinema or home
+
+  media Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+}
