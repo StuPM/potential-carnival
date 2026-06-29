@@ -1,28 +1,24 @@
-Prerequisites:
+# HONO Backend
 
-- [Vercel CLI](https://vercel.com/docs/cli) installed globally
+IDEA: A typed, validated and tested Hono backend for my media tracking website.
 
-To develop locally:
+## Links
 
-```
-npm install
-vc dev
-```
+- Backend : Vercel
+- Database : Prisma
 
-```
-open http://localhost:3000
-```
+## TODO
 
-To build locally:
+- Authentication for admin routes, post, patch, delete.
+- Authentication for the rest, making sure it only comes from the frontend or testing.
+- Rate limiting
+- Etag
+- External logging
+- OpenAPI docs - https://honohub.dev/docs/openapi/arktype
+- Stats
 
-```
-npm install
-vc build
-```
+## Factory
 
-To deploy:
+In order to reduce the amount of duplicate CRUD functions, I've implemented a factory solution to build up similar routes for the different media types, films, books etc.
 
-```
-npm install
-vc deploy
-```
+Each factory them imports its own specific factory config for routes and data that are no similar. E.g. only the film factory needs to talk to tmdb.

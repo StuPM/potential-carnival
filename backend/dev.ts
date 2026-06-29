@@ -1,7 +1,7 @@
 import { serve } from '@hono/node-server';
 import app from './src/index.js'; // Import your main Hono app
 
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+const port = process.env.PORT ? Number(process.env.PORT) : 8088;
 
 serve({
   fetch: app.fetch,

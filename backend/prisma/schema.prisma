@@ -7,49 +7,40 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum MEDIATYPE {
+  book
+  film
 }
 
-// Unique list of media
 model Media {
-  id String @id //film-tmdbID
-  type String // Film, Book
-  createdAt DateTime @default(now())
-
-  film Films?
-  // book Books?
+  id           String         @id
+  type         MEDIATYPE
+  created      DateTime       @default(now())
+  film         Film?
   mediaHistory MediaHistory[]
 }
 
-
-// Unique list of films
-model Films {
-  id String @id
-  tmdbId Int @unique
-  title String 
-  originalTitle String
+model Film {
+  id               String   @id
+  tmdbId           Int      @unique
+  title            String
+  originalTitle    String
   originalLanguage String
-  overview String
-  posterPath String @unique
-  releaseDate DateTime
-  watchedCount Int @default(1)
-
-  media Media @relation(fields: [id], references: [id], onDelete: Cascade)
+  overview         String
+  posterPath       String   @unique
+  releaseDate      DateTime
+  watchedCount     Int      @default(1)
+  media            Media    @relation(fields: [id], references: [id], onDelete: Cascade)
+  genres           Int[]
 }
 
-
-// Complete list of media that has been consumed
 model MediaHistory {
-  id String @id @default(cuid()) 
-  mediaId String 
-  finishedAt DateTime
-  rating Int 
-  location String? // Only if film, cinema or home
-
-  media Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  id       String   @id @default(cuid())
+  mediaId  String
+  created  DateTime @default(now())
+  finished DateTime
+  rating   Int
+  location String?
+  review   String?
+  media    Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
 }
