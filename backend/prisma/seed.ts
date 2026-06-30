@@ -19,7 +19,7 @@ async function main() {
             posterPath: "/p96dm7sCMn4VYAStA6siNz30G1r.jpg",
             releaseDate: new Date("1999-03-31"),
             watchedCount: 1,
-            genres: [28, 878],
+            genres: ["action", "science fiction"],
           },
         },
         mediaHistory: {
@@ -48,8 +48,8 @@ async function main() {
               'In the post-apocalyptic future, reigning tyrannical supercomputers teleport a cyborg assassin known as the "Terminator" back to 1984 to kill Sarah Connor, whose unborn son is destined to lead insurgents against 21st century mechanical hegemony. Meanwhile, the human-resistance movement dispatches a lone warrior to safeguard Sarah. Can he stop the virtually indestructible killing machine?',
             posterPath: "/qvktm0BHcnmDpul4Hz01GIazWPr.jpg",
             releaseDate: new Date("1984-10-26"),
-            watchedCount: 1,
-            genres: [28, 53, 878],
+            watchedCount: 1, 
+            genres: ["action" ,"thriller", "science fiction"],
           },
         },
         mediaHistory: {

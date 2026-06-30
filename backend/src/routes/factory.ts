@@ -10,6 +10,7 @@ import {
 import { onValidationError } from "../schemas/validations.js";
 
 import { MEDIATYPE } from "../generated/prisma/client.js";
+import { tmdbGenreMap } from "../lib/tmdbGenres.js";
 
 interface ModelConfig {
   findMany: () => Promise<unknown[]>;
@@ -97,9 +98,9 @@ export function createMediaFactory(config: FactoryConfig) {
                 originalLanguage: body["original_language"],
                 overview: body["overview"],
                 posterPath: body["poster_path"],
-                releaseDate: new Date(body["release_date"]),
-                genres: body["genre_ids"],
-              },
+                releaseDate: new Date(body["release_date"]), 
+                genres : tmdbGenreMap(body["genre_ids"])
+               },
             },
             mediaHistory: {
               create: {

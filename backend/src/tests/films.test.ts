@@ -19,9 +19,7 @@ describe("Factory - Films", () => {
       query: {},
     });
     const body = await res.json();
-
-    console.log(body);
-
+    
     expect(res.status).toBe(200);
     expect(body).toEqual({
       id: "film-603",
@@ -37,13 +35,11 @@ describe("Factory - Films", () => {
     });
     const body = await res.json();
 
-    console.log(body);
-
     expect(res.status).toBe(200);
-    expect(body).toEqual({
+    expect(body).toHaveProperty("created");
+    expect(body).toMatchObject({
       id: "film-603",
       type: "film",
-      created: "2026-02-12T16:25:47.363Z",
       film: {
         id: "film-603",
         tmdbId: 603,
@@ -55,7 +51,7 @@ describe("Factory - Films", () => {
         posterPath: "/p96dm7sCMn4VYAStA6siNz30G1r.jpg",
         releaseDate: "1999-03-31T00:00:00.000Z",
         watchedCount: 1,
-        genres: [28, 878],
+        genres: ["action", "science fiction"],
       },
     });
   });
@@ -67,13 +63,15 @@ describe("Factory - Films", () => {
     });
     const body = await res.json();
 
-    console.log(body);
-
     expect(res.status).toBe(200);
-    expect(body).toEqual({
+    expect(body).toHaveProperty("created");
+    expect(body).toHaveProperty("mediaHistory[0]");
+    expect(body).toHaveProperty("mediaHistory[0].id");
+    expect(body).toHaveProperty("mediaHistory[0].created");
+    expect(body).toMatchObject({
       id: "film-603",
       type: "film",
-      created: "2026-02-12T16:25:47.363Z",
+      // created: "2026-02-12T16:25:47.363Z",
       film: {
         id: "film-603",
         tmdbId: 603,
@@ -85,13 +83,13 @@ describe("Factory - Films", () => {
         posterPath: "/p96dm7sCMn4VYAStA6siNz30G1r.jpg",
         releaseDate: "1999-03-31T00:00:00.000Z",
         watchedCount: 1,
-        genres: [28, 878],
+        genres: ["action", "science fiction"],
       },
       mediaHistory: [
         {
-          id: "cmqtituej0000govcehqu3coq",
+          // id: "cmqtituej0000govcehqu3coq",
           mediaId: "film-603",
-          created: "2026-06-25T13:11:35.467Z",
+          // created: "2026-06-25T13:11:35.467Z",
           finished: "2025-05-05T00:00:00.000Z",
           rating: 10,
           location: "cinema",

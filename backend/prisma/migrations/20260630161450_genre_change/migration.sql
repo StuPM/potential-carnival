@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Film" ALTER COLUMN "genres" SET DATA TYPE TEXT[];

@@ -31,7 +31,7 @@ model Film {
   releaseDate      DateTime
   watchedCount     Int      @default(1)
   media            Media    @relation(fields: [id], references: [id], onDelete: Cascade)
-  genres           Int[]
+  genres           String[]
 }
 
 model MediaHistory {
