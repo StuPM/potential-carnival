@@ -10,6 +10,7 @@ datasource db {
 enum MEDIATYPE {
   book
   film
+  manga
 }
 
 model Media {
@@ -17,12 +18,13 @@ model Media {
   type         MEDIATYPE
   created      DateTime       @default(now())
   film         Film?
+  manga        Manga?
   mediaHistory MediaHistory[]
 }
 
 model Film {
   id               String   @id
-  tmdbId           Int      @unique
+  externalId           Int      @unique
   title            String
   originalTitle    String
   originalLanguage String
@@ -30,8 +32,21 @@ model Film {
   posterPath       String   @unique
   releaseDate      DateTime
   watchedCount     Int      @default(1)
-  media            Media    @relation(fields: [id], references: [id], onDelete: Cascade)
   genres           String[]
+  media Media @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+model Manga {
+  id               String   @id
+  externalId       String   @unique
+  title            String
+  originalTitle    String
+  originalLanguage String
+  overview         String
+  posterPath       String   @unique
+  releaseDate      DateTime
+  genres           String[]
+  media            Media    @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
 model MediaHistory {
