@@ -2,7 +2,7 @@ import { sValidator } from "@hono/standard-validator";
 import { Hono } from "hono";
 import { onValidationError } from "../schemas/validations.js";
 
-import { filmQuerySchema } from "../schemas/films.js";
+import { filmQuerySchema } from "../schemas/films.schema.js";
 
 /**
  * Custom films only function that are mounted onto the films factory when it is created

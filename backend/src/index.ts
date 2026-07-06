@@ -8,7 +8,7 @@ import { createMediaFactory } from "./routes/factory.js";
  
 
 import filmsRouter from "./routes/films.js";
-
+import mangaRouter from "./routes/manga.js"
 
 
  
@@ -18,12 +18,19 @@ const films = createMediaFactory({
   routes: filmsRouter, // Specific film routes
 });
 
+const manga = createMediaFactory({
+  model : prisma.manga,
+  prefix : MEDIATYPE.manga,
+  routes: mangaRouter
+})
+
 // const books = createMediaFactory({ api : bookAdapter, model : prisma.books, prefix : "book"})
 // const anime = createMediaFactory({ api : bookAdapter, model : prisma.books, prefix : "book"})
 
 const app = new Hono()
   .use(logger()) 
   .route("/films", films)
+  .route("/manga", manga)
   .notFound((c) => c.json({ error: "Not found" }, 404));
 
 export default app;

@@ -3,10 +3,10 @@ import { sValidator } from "@hono/standard-validator";
 import prisma from "../lib/prisma.js";
 import { Prisma } from "../generated/prisma/client.js";
 import {
-  historySchema,
+  mediaHistorySchema,
   idParamSchema,
   includeQuerySchema,
-} from "../schemas/factory.js";
+} from "../schemas/factory.schema.js";
 import { onValidationError } from "../schemas/validations.js";
 
 import { MEDIATYPE } from "../generated/prisma/client.js";
@@ -92,21 +92,22 @@ export function createMediaFactory(config: FactoryConfig) {
             type: config.prefix,
             film: {
               create: {
-                tmdbId: body["id"],
+                externalId: body["id"],
                 title: body["title"],
                 originalTitle: body["original_title"],
                 originalLanguage: body["original_language"],
                 overview: body["overview"],
                 posterPath: body["poster_path"],
-                releaseDate: new Date(body["release_date"]), 
-                genres : tmdbGenreMap(body["genre_ids"])
-               },
+                releaseDate: new Date(body["release_date"]),
+                genres: tmdbGenreMap(body["genre_ids"]),
+              },
             },
             mediaHistory: {
               create: {
                 // mediaId: uniqueID, - No need to include as FK included as default
-                finished: new Date(body["finishedAt"]),
+                finished: new Date(body["finished"]),
                 rating: body["rating"],
+                review: body["review"],
                 location: body["cinema"],
               },
             },
@@ -115,8 +116,9 @@ export function createMediaFactory(config: FactoryConfig) {
             film: { update: { watchedCount: { increment: 1 } } },
             mediaHistory: {
               create: {
-                finished: new Date(body["finishedAt"]),
+                finished: new Date(body["finished"]),
                 rating: body["rating"],
+                review: body["review"],
                 location: body["cinema"],
               },
             },
@@ -130,7 +132,7 @@ export function createMediaFactory(config: FactoryConfig) {
        */
       .patch(
         "/:id",
-        sValidator("json", historySchema, onValidationError),
+        sValidator("json", mediaHistorySchema, onValidationError),
         async (c) => {
           // TODO Ensure that we already have the film in the database beforehand
           // TODO Validate the history object
@@ -202,7 +204,7 @@ export function createMediaFactory(config: FactoryConfig) {
         });
 
         let deleteRecord;
-        
+
         // If count is 1, then only record so delete Media record to cascade delete
         if (historyCount == 1) {
           deleteRecord = await prisma.media.delete({

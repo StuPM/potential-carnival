@@ -3,14 +3,15 @@
 ## Backend
 
 ```
-index.ts              # Main Hono app
-├── factory.ts        # Generates shared API routes
-├── adapters/
-│   ├── films.adapter.ts  # Films-specific functions
-│   ├── books.adapter.ts  # Books-specific functions (TBC)
-│   ├── manga.adapter.ts  # Manga-specific functions (MyAnimeList)
-├── stats.ts          # Aggregated stats endpoint
-├── auth.ts           # Auth routes
+index.ts            # Main Hono app
+dev.ts              # Export for development
+├── routes/
+│   ├── factory.ts  # Generates shared API routes
+│   ├── films.ts    # Films-specific functions
+│   ├── books.ts    # Books-specific functions
+│   ├── manga.ts    # Manga-specific functions
+├── stats.ts        # Aggregated stats endpoint
+├── auth.ts         # Auth routes
 ├── middleware/
 │   ├── auth.ts       # JWT verification
 │   └── rateLimit.ts
@@ -39,16 +40,25 @@ index.ts              # Main Hono app
 
 ---
 
-### `films.adapter.ts` — Films
+### `films.ts` — Films (TMDB)
 
-| Method | Path      | Description                      |
-| ------ | --------- | -------------------------------- |
-| `GET`  | `/search` | Search the TMDB API by film name |
-| `GET`  | `/:id`    | Return a film by its TMDB ID     |
+| Method | Path      | Description                        |
+| ------ | --------- | ---------------------------------- |
+| `GET`  | `/search` | Search the TMDB API by film name   |
+| `GET`  | `/:id`    | TBC - Return a film by its TMDB ID |
 
 ---
 
-### `books.adapter.ts` — Books (TBC)
+### `manga.ts` — Manga (MangaDex)
+
+| Method | Path      | Description                           |
+| ------ | --------- | ------------------------------------- |
+| `GET`  | `/search` | Search the MangaDex API by Manga name |
+| `POST` | `/`       | Save a new record                     |
+
+---
+
+### `books.ts` — Books (TBC)
 
 - Custom hook `POST` to save to Hardcover API and local DB
 - Search for a book
@@ -56,14 +66,7 @@ index.ts              # Main Hono app
 
 ---
 
-### `manga.adapter.ts` — Manga (MyAnimeList)
-
-- Fetch manga details from MyAnimeList API
-- Custom hook `POST` to save to MyAnimeList and local DB
-
----
-
-### `stats.ts`
+### `stats.ts`(TBC)
 
 | Method | Path     | Description                                         |
 | ------ | -------- | --------------------------------------------------- |
