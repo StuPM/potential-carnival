@@ -10,7 +10,7 @@ async function main() {
         created: new Date(1770913547363),
         film: {
           create: {
-            tmdbId: 603,
+            externalId: 603,
             title: "The Matrix",
             originalTitle: "The Matrix",
             originalLanguage: "en",
@@ -40,7 +40,7 @@ async function main() {
         created: new Date(1771605136742),
         film: {
           create: {
-            tmdbId: 218,
+            externalId: 218,
             title: "The Terminator",
             originalTitle: "The Terminator",
             originalLanguage: "en",
