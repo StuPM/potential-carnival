@@ -10,7 +10,7 @@ import {
 import { onValidationError } from "../schemas/validations.js";
 
 import { MEDIATYPE } from "../generated/prisma/client.js";
-import { tmdbGenreMap } from "../lib/tmdbGenres.js";
+
 
 interface ModelConfig {
   findMany: () => Promise<unknown[]>;
@@ -74,59 +74,7 @@ export function createMediaFactory(config: FactoryConfig) {
           return c.json(res);
         },
       )
-      /**
-       * Post a new record for the factory type
-       */
-      .post("/", async (c) => {
-        // TODO Validate the body
-        // TODO Control the factory creation when we have other database table
 
-        const body = await c.req.json();
-
-        const uniqueID = config.prefix + "-" + body["id"];
-
-        const createMedia = await prisma.media.upsert({
-          where: { id: uniqueID },
-          create: {
-            id: uniqueID,
-            type: config.prefix,
-            film: {
-              create: {
-                externalId: body["id"],
-                title: body["title"],
-                originalTitle: body["original_title"],
-                originalLanguage: body["original_language"],
-                overview: body["overview"],
-                posterPath: body["poster_path"],
-                releaseDate: new Date(body["release_date"]),
-                genres: tmdbGenreMap(body["genre_ids"]),
-              },
-            },
-            mediaHistory: {
-              create: {
-                // mediaId: uniqueID, - No need to include as FK included as default
-                finished: new Date(body["finished"]),
-                rating: body["rating"],
-                review: body["review"],
-                location: body["cinema"],
-              },
-            },
-          },
-          update: {
-            film: { update: { watchedCount: { increment: 1 } } },
-            mediaHistory: {
-              create: {
-                finished: new Date(body["finished"]),
-                rating: body["rating"],
-                review: body["review"],
-                location: body["cinema"],
-              },
-            },
-          },
-        });
-
-        return c.json(createMedia);
-      })
       /**
        * Patch Edit an already existing history
        */

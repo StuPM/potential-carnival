@@ -20,8 +20,8 @@ export const includeQuerySchema = type({
  * Used in POST requests when saving a new record
  */
 export const mediaHistorySchema = type({
-  finished: `Date < ${Date.now()}`,
+  finished: `string.date < ${Date.now()}`,
   rating: "0 < number <= 10",
-  "location?": "'cinema' | 'home' | null",
+  "location": "'cinema' | 'home' | null",
   "review?": "string",
 });
