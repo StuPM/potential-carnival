@@ -1,0 +1,54 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev",
+      "type": "shell",
+      "command": "pnpm dev",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "group": "dev-all",
+        "panel": "dedicated",
+        "reveal": "always",
+        "focus": false
+      }
+    },
+    {
+      "label": "typecheck",
+      "type": "shell",
+      "command": "pnpm dev:typecheck",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "group": "dev-all",
+        "panel": "dedicated",
+        "reveal": "always",
+        "focus": false
+      }
+    },
+    {
+      "label": "test",
+      "type": "shell",
+      "command": "pnpm dev:test",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "group": "dev-all",
+        "panel": "dedicated",
+        "reveal": "always",
+        "focus": false
+      }
+    },
+    {
+      "label": "dev:all",
+      "dependsOn": ["dev", "typecheck", "test"],
+      "dependsOrder": "parallel",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    }
+  ]
+}

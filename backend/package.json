@@ -1,7 +1,7 @@
 {
-  "name": "BACKEND - HONO x PRISMA",
+  "name": "BACKEND",
   "type": "module",
-  "private" : true,
+  "private": true,
   "version": "0.1.0",
   "engines": {
     "node": "22"
@@ -10,12 +10,13 @@
   "scripts": {
     "build": "tsc --noEmit false || true",
     "dev": "tsx watch dev.ts",
+    "dev:typecheck": "tsc --noEmit --watch --preserveWatchOutput",
+    "dev:test": "vitest",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
-    "postinstall": "prisma generate",
-    "test": "vitest"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@hono/standard-validator": "^0.2.2",
