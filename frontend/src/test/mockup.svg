@@ -1,0 +1,220 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 680" width="720" height="680" style="font-family: 'Courier New', Courier, monospace;">
+  <defs>
+    <clipPath id="shell-clip"><rect x="0" y="0" width="720" height="680" rx="12"/></clipPath>
+    <clipPath id="title-clip"><rect x="80" y="86" width="560" height="12"/></clipPath>
+  </defs>
+
+  <!-- Shell bg -->
+  <rect x="0" y="0" width="720" height="680" rx="12" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="1"/>
+
+  <!-- Title bar -->
+  <rect x="0" y="0" width="720" height="36" rx="12" fill="#1a1a1a" clip-path="url(#shell-clip)"/>
+  <rect x="0" y="24" width="720" height="12" fill="#1a1a1a"/>
+  <rect x="0" y="36" width="720" height="1" fill="#2a2a2a"/>
+  <!-- Traffic dots -->
+  <circle cx="20" cy="18" r="5.5" fill="#3a3a3a"/>
+  <circle cx="36" cy="18" r="5.5" fill="#3a3a3a"/>
+  <circle cx="52" cy="18" r="5.5" fill="#3a3a3a"/>
+  <!-- Title -->
+  <text x="360" y="23" text-anchor="middle" font-size="11" fill="#555" letter-spacing="0.5">myfiles — media log v1</text>
+
+  <!-- Prompt block -->
+  <text x="24" y="62" font-size="12" fill="#5DCAA5">stuart@myfiles</text>
+  <text x="130" y="62" font-size="12" fill="#7F77DD">~/library</text>
+  <text x="198" y="62" font-size="12" fill="#888">$</text>
+  <text x="210" y="62" font-size="12" fill="#d4d4d0">cat .profile</text>
+
+  <text x="24" y="80" font-size="11" fill="#5DCAA5">→</text>
+  <text x="36" y="80" font-size="11" fill="#444">Personal media log. Films watched, books read.</text>
+  <text x="24" y="95" font-size="11" fill="#5DCAA5">→</text>
+  <text x="36" y="95" font-size="11" fill="#444">Public read-only. Admin access requires auth.</text>
+  <text x="24" y="110" font-size="11" fill="#5DCAA5">→</text>
+  <text x="36" y="110" font-size="11" fill="#444">Last updated </text>
+  <text x="122" y="110" font-size="11" fill="#d4d4d0">2 days ago</text>
+  <text x="168" y="110" font-size="11" fill="#444">.</text>
+
+  <!-- Divider -->
+  <rect x="0" y="120" width="720" height="1" fill="#1e1e1e"/>
+
+  <!-- ASCII logo -->
+  <text x="24" y="142" font-size="12" fill="#5DCAA5" letter-spacing="1">█▀▄▀█ █▄█ █▀▀ █ █░░ █▀▀ █▀</text>
+  <text x="24" y="158" font-size="12" fill="#3a3a3a" letter-spacing="1">█░▀░█ ░█░ █▀░ █ █▄▄ ██▄ ▄█</text>
+  <text x="24" y="176" font-size="11" fill="#444">tracked by <tspan fill="#5DCAA5">stuart</tspan> · since 2022 · <tspan fill="#5DCAA5">47</tspan> entries</text>
+
+  <!-- Divider -->
+  <rect x="0" y="186" width="720" height="1" fill="#1e1e1e"/>
+
+  <!-- Toolbar -->
+  <text x="24" y="208" font-size="12" fill="#5DCAA5">search~$</text>
+  <text x="96" y="208" font-size="12" fill="#555">_</text>
+  <rect x="94" y="212" width="440" height="1" fill="#2a2a2a"/>
+
+  <!-- Filter buttons -->
+  <rect x="570" y="196" width="38" height="20" rx="3" fill="none" stroke="#5DCAA5" stroke-width="0.8"/>
+  <text x="589" y="210" text-anchor="middle" font-size="11" fill="#5DCAA5">[all]</text>
+  <rect x="612" y="196" width="42" height="20" rx="3" fill="none" stroke="#2a2a2a" stroke-width="0.8"/>
+  <text x="633" y="210" text-anchor="middle" font-size="11" fill="#555">[film]</text>
+  <rect x="658" y="196" width="42" height="20" rx="3" fill="none" stroke="#2a2a2a" stroke-width="0.8"/>
+  <text x="679" y="210" text-anchor="middle" font-size="11" fill="#555">[book]</text>
+
+  <!-- Divider -->
+  <rect x="0" y="224" width="720" height="1" fill="#1e1e1e"/>
+
+  <!-- Stats row -->
+  <text x="24" y="241" font-size="11" fill="#444">entries <tspan fill="#d4d4d0">47</tspan></text>
+  <rect x="98" y="230" width="1" height="14" fill="#222"/>
+  <text x="108" y="241" font-size="11" fill="#444">films <tspan fill="#d4d4d0">31</tspan></text>
+  <rect x="162" y="230" width="1" height="14" fill="#222"/>
+  <text x="172" y="241" font-size="11" fill="#444">books <tspan fill="#d4d4d0">16</tspan></text>
+  <rect x="228" y="230" width="1" height="14" fill="#222"/>
+  <text x="238" y="241" font-size="11" fill="#444">avg rating <tspan fill="#5DCAA5">7.4</tspan></text>
+  <rect x="326" y="230" width="1" height="14" fill="#222"/>
+  <text x="336" y="241" font-size="11" fill="#444">this year <tspan fill="#d4d4d0">12</tspan></text>
+  <rect x="404" y="230" width="1" height="14" fill="#222"/>
+  <text x="414" y="241" font-size="11" fill="#444">cinema <tspan fill="#d4d4d0">8</tspan></text>
+
+  <!-- Divider -->
+  <rect x="0" y="252" width="720" height="1" fill="#1e1e1e"/>
+
+  <!-- Log header -->
+  <text x="24"  y="270" font-size="10" fill="#3a3a3a" letter-spacing="0.5">DATE</text>
+  <text x="110" y="270" font-size="10" fill="#3a3a3a" letter-spacing="0.5">TYPE</text>
+  <text x="160" y="270" font-size="10" fill="#3a3a3a" letter-spacing="0.5">TITLE</text>
+  <text x="440" y="270" font-size="10" fill="#3a3a3a" letter-spacing="0.5">WHERE</text>
+  <text x="540" y="270" font-size="10" fill="#3a3a3a" letter-spacing="0.5">RATING</text>
+  <text x="640" y="270" font-size="10" fill="#3a3a3a" letter-spacing="0.5">STATUS</text>
+  <rect x="0" y="275" width="720" height="1" fill="#222"/>
+
+  <!-- Row macro: y positions 290 325 360 395 430 465 500 535 570 -->
+  <!-- Row 1 -->
+  <rect x="0" y="278" width="720" height="30" fill="#141414" opacity="0"/>
+  <text x="24"  y="297" font-size="11" fill="#444">2025-06-14</text>
+  <rect x="108" y="285" width="36" height="15" rx="2" fill="none" stroke="#534AB7" stroke-width="0.8"/>
+  <text x="126" y="296" text-anchor="middle" font-size="10" fill="#7F77DD">film</text>
+  <text x="160" y="297" font-size="12" fill="#d4d4d0">Dune: Part Two</text>
+  <text x="298" y="297" font-size="11" fill="#444"> · Villeneuve</text>
+  <text x="440" y="297" font-size="11" fill="#EF9F27">⬡ cinema</text>
+  <rect x="538" y="291" width="68" height="4" rx="2" fill="#1e1e1e"/>
+  <rect x="538" y="291" width="56" height="4" rx="2" fill="#5DCAA5"/>
+  <text x="614" y="297" font-size="11" fill="#555">8.2</text>
+  <text x="640" y="297" font-size="11" fill="#3B6D11">✓ done</text>
+  <rect x="0" y="308" width="720" height="1" fill="#181818"/>
+
+  <!-- Row 2 -->
+  <text x="24"  y="325" font-size="11" fill="#444">2025-05-30</text>
+  <rect x="108" y="313" width="36" height="15" rx="2" fill="none" stroke="#0F6E56" stroke-width="0.8"/>
+  <text x="126" y="324" text-anchor="middle" font-size="10" fill="#5DCAA5">book</text>
+  <text x="160" y="325" font-size="12" fill="#d4d4d0">Project Hail Mary</text>
+  <text x="306" y="325" font-size="11" fill="#444"> · Weir</text>
+  <text x="440" y="325" font-size="11" fill="#555">home</text>
+  <rect x="538" y="319" width="68" height="4" rx="2" fill="#1e1e1e"/>
+  <rect x="538" y="319" width="62" height="4" rx="2" fill="#5DCAA5"/>
+  <text x="614" y="325" font-size="11" fill="#555">9.1</text>
+  <text x="640" y="325" font-size="11" fill="#7F77DD">↺ reread</text>
+  <rect x="0" y="336" width="720" height="1" fill="#181818"/>
+
+  <!-- Row 3 -->
+  <text x="24"  y="353" font-size="11" fill="#444">2025-05-11</text>
+  <rect x="108" y="341" width="36" height="15" rx="2" fill="none" stroke="#534AB7" stroke-width="0.8"/>
+  <text x="126" y="352" text-anchor="middle" font-size="10" fill="#7F77DD">film</text>
+  <text x="160" y="353" font-size="12" fill="#d4d4d0">The Holdovers</text>
+  <text x="282" y="353" font-size="11" fill="#444"> · Payne</text>
+  <text x="440" y="353" font-size="11" fill="#EF9F27">⬡ cinema</text>
+  <rect x="538" y="347" width="68" height="4" rx="2" fill="#1e1e1e"/>
+  <rect x="538" y="347" width="58" height="4" rx="2" fill="#5DCAA5"/>
+  <text x="614" y="353" font-size="11" fill="#555">8.5</text>
+  <text x="640" y="353" font-size="11" fill="#3B6D11">✓ done</text>
+  <rect x="0" y="364" width="720" height="1" fill="#181818"/>
+
+  <!-- Row 4 -->
+  <text x="24"  y="381" font-size="11" fill="#444">2025-04-22</text>
+  <rect x="108" y="369" width="36" height="15" rx="2" fill="none" stroke="#534AB7" stroke-width="0.8"/>
+  <text x="126" y="380" text-anchor="middle" font-size="10" fill="#7F77DD">film</text>
+  <text x="160" y="381" font-size="12" fill="#d4d4d0">Blade Runner 2049</text>
+  <text x="308" y="381" font-size="11" fill="#444"> · Villeneuve</text>
+  <text x="440" y="381" font-size="11" fill="#555">home</text>
+  <rect x="538" y="375" width="68" height="4" rx="2" fill="#1e1e1e"/>
+  <rect x="538" y="375" width="61" height="4" rx="2" fill="#5DCAA5"/>
+  <text x="614" y="381" font-size="11" fill="#555">9.0</text>
+  <text x="640" y="381" font-size="11" fill="#7F77DD">↺ rewatch</text>
+  <rect x="0" y="392" width="720" height="1" fill="#181818"/>
+
+  <!-- Row 5 -->
+  <text x="24"  y="409" font-size="11" fill="#444">2025-04-09</text>
+  <rect x="108" y="397" width="36" height="15" rx="2" fill="none" stroke="#0F6E56" stroke-width="0.8"/>
+  <text x="126" y="408" text-anchor="middle" font-size="10" fill="#5DCAA5">book</text>
+  <text x="160" y="409" font-size="12" fill="#d4d4d0">Atomic Habits</text>
+  <text x="272" y="409" font-size="11" fill="#444"> · Clear</text>
+  <text x="440" y="409" font-size="11" fill="#555">home</text>
+  <rect x="538" y="403" width="68" height="4" rx="2" fill="#1e1e1e"/>
+  <rect x="538" y="403" width="54" height="4" rx="2" fill="#5DCAA5"/>
+  <text x="614" y="409" font-size="11" fill="#555">8.0</text>
+  <text x="640" y="409" font-size="11" fill="#3B6D11">✓ done</text>
+  <rect x="0" y="420" width="720" height="1" fill="#181818"/>
+
+  <!-- Row 6 -->
+  <text x="24"  y="437" font-size="11" fill="#444">2025-03-28</text>
+  <rect x="108" y="425" width="36" height="15" rx="2" fill="none" stroke="#534AB7" stroke-width="0.8"/>
+  <text x="126" y="436" text-anchor="middle" font-size="10" fill="#7F77DD">film</text>
+  <text x="160" y="437" font-size="12" fill="#d4d4d0">Poor Things</text>
+  <text x="258" y="437" font-size="11" fill="#444"> · Lanthimos</text>
+  <text x="440" y="437" font-size="11" fill="#EF9F27">⬡ cinema</text>
+  <rect x="538" y="431" width="68" height="4" rx="2" fill="#1e1e1e"/>
+  <rect x="538" y="431" width="48" height="4" rx="2" fill="#EF9F27"/>
+  <text x="614" y="437" font-size="11" fill="#555">7.1</text>
+  <text x="640" y="437" font-size="11" fill="#3B6D11">✓ done</text>
+  <rect x="0" y="448" width="720" height="1" fill="#181818"/>
+
+  <!-- Row 7 -->
+  <text x="24"  y="465" font-size="11" fill="#444">2025-03-14</text>
+  <rect x="108" y="453" width="36" height="15" rx="2" fill="none" stroke="#0F6E56" stroke-width="0.8"/>
+  <text x="126" y="464" text-anchor="middle" font-size="10" fill="#5DCAA5">book</text>
+  <text x="160" y="465" font-size="12" fill="#d4d4d0">Thursday Murder Club</text>
+  <text x="322" y="465" font-size="11" fill="#444"> · Osman</text>
+  <text x="440" y="465" font-size="11" fill="#555">home</text>
+  <rect x="538" y="459" width="68" height="4" rx="2" fill="#1e1e1e"/>
+  <rect x="538" y="459" width="50" height="4" rx="2" fill="#EF9F27"/>
+  <text x="614" y="465" font-size="11" fill="#555">7.4</text>
+  <text x="640" y="465" font-size="11" fill="#3B6D11">✓ done</text>
+  <rect x="0" y="476" width="720" height="1" fill="#181818"/>
+
+  <!-- Row 8 -->
+  <text x="24"  y="493" font-size="11" fill="#444">2025-02-01</text>
+  <rect x="108" y="481" width="36" height="15" rx="2" fill="none" stroke="#534AB7" stroke-width="0.8"/>
+  <text x="126" y="492" text-anchor="middle" font-size="10" fill="#7F77DD">film</text>
+  <text x="160" y="493" font-size="12" fill="#d4d4d0">Oppenheimer</text>
+  <text x="262" y="493" font-size="11" fill="#444"> · Nolan</text>
+  <text x="440" y="493" font-size="11" fill="#EF9F27">⬡ cinema</text>
+  <rect x="538" y="487" width="68" height="4" rx="2" fill="#1e1e1e"/>
+  <rect x="538" y="487" width="53" height="4" rx="2" fill="#5DCAA5"/>
+  <text x="614" y="493" font-size="11" fill="#555">7.8</text>
+  <text x="640" y="493" font-size="11" fill="#3B6D11">✓ done</text>
+  <rect x="0" y="504" width="720" height="1" fill="#181818"/>
+
+  <!-- Row 9 -->
+  <text x="24"  y="521" font-size="11" fill="#444">2025-01-18</text>
+  <rect x="108" y="509" width="36" height="15" rx="2" fill="none" stroke="#534AB7" stroke-width="0.8"/>
+  <text x="126" y="520" text-anchor="middle" font-size="10" fill="#7F77DD">film</text>
+  <text x="160" y="521" font-size="12" fill="#d4d4d0">Past Lives</text>
+  <text x="234" y="521" font-size="11" fill="#444"> · Song</text>
+  <text x="440" y="521" font-size="11" fill="#555">home</text>
+  <rect x="538" y="515" width="68" height="4" rx="2" fill="#1e1e1e"/>
+  <rect x="538" y="515" width="60" height="4" rx="2" fill="#5DCAA5"/>
+  <text x="614" y="521" font-size="11" fill="#555">8.8</text>
+  <text x="640" y="521" font-size="11" fill="#3B6D11">✓ done</text>
+  <rect x="0" y="532" width="720" height="1" fill="#181818"/>
+
+  <!-- Fade overlay -->
+  <defs>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0e0e0e" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#0e0e0e" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="490" width="720" height="80" fill="url(#fade)"/>
+
+  <!-- Footer -->
+  <rect x="0" y="644" width="720" height="1" fill="#1e1e1e"/>
+  <text x="24" y="664" font-size="11" fill="#333">9 of 47 entries shown · sorted by date desc</text>
+  <text x="672" y="664" text-anchor="end" font-size="11" fill="#2a2a2a">🔒 admin</text>
+</svg>

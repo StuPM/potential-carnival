@@ -1,8 +1,12 @@
 {
-  "name": "vite-project",
-  "private": true,
-  "version": "0.0.0",
+  "name": "FRONTEND",
   "type": "module",
+  "private": true,
+  "version": "0.1.0",
+  "engines": {
+    "node": "22"
+  },
+  "packageManager": "pnpm@10.34.4",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
@@ -15,7 +19,7 @@
     "@types/node": "^24.12.3",
     "@vitejs/plugin-vue": "^6.0.6",
     "@vue/tsconfig": "^0.9.1",
-    "typescript": "~6.0.2",
+    "typescript": "^5.9.3",
     "vite": "^8.0.12",
     "vue-tsc": "^3.2.8"
   }
