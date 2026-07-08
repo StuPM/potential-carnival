@@ -2,7 +2,7 @@ import { type } from "arktype";
 import { MEDIATYPE } from "../generated/prisma/client.js";
 
 export const idParamSchema = type({
-  id: "string > 3",
+  id: "string >= 3",
 });
 
 /**

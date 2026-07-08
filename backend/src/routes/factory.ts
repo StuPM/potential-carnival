@@ -11,7 +11,6 @@ import { onValidationError } from "../schemas/validations.js";
 
 import { MEDIATYPE } from "../generated/prisma/client.js";
 
-
 interface ModelConfig {
   findMany: () => Promise<unknown[]>;
   delete: (args: { where: { id: string } }) => Prisma.PrismaPromise<unknown>;

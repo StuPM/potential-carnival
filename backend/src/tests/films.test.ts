@@ -42,7 +42,7 @@ describe("Factory - Films", () => {
       type: "film",
       film: {
         id: "film-603",
-        tmdbId: 603,
+        externalId: 603,
         title: "The Matrix",
         originalTitle: "The Matrix",
         originalLanguage: "en",
@@ -74,7 +74,7 @@ describe("Factory - Films", () => {
       // created: "2026-02-12T16:25:47.363Z",
       film: {
         id: "film-603",
-        tmdbId: 603,
+        externalId: 603,
         title: "The Matrix",
         originalTitle: "The Matrix",
         originalLanguage: "en",
