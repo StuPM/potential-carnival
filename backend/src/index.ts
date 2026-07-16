@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
+import { cors } from "hono/cors";
 
 import prisma from "./lib/prisma.js";
 import { MEDIATYPE } from "./generated/prisma/enums.js";
@@ -28,8 +29,10 @@ const manga = createMediaFactory({
 
 const app = new Hono()
   .use(logger())
+  // TODO Flesh out cors further to make it more secure
+  .use(cors())
   .route("/stats", stats)
-  .route("/media", media) 
+  .route("/media", media)
   .route("/films", films)
   .route("/manga", manga)
   .notFound((c) => c.json({ error: "Not found" }, 404));
