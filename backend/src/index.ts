@@ -7,6 +7,7 @@ import { MEDIATYPE } from "./generated/prisma/enums.js";
 import { createMediaFactory } from "./routes/factory.js";
 
 import stats from "./routes/stats.js";
+import media from "./routes/media.js";
 import filmsRouter from "./routes/films.js";
 import mangaRouter from "./routes/manga.js";
 
@@ -28,7 +29,7 @@ const manga = createMediaFactory({
 const app = new Hono()
   .use(logger())
   .route("/stats", stats)
-  // TODO - Possibily add in media to get a joint fetch of all tables by media history
+  .route("/media", media) 
   .route("/films", films)
   .route("/manga", manga)
   .notFound((c) => c.json({ error: "Not found" }, 404));
