@@ -11,6 +11,7 @@ import stats from "./routes/stats.js";
 import media from "./routes/media.js";
 import filmsRouter from "./routes/films.js";
 import mangaRouter from "./routes/manga.js";
+import books from "./routes/books.js";
 
 const films = createMediaFactory({
   model: prisma.film, // Pass in the relevant prisma information
@@ -33,6 +34,7 @@ const app = new Hono()
   .use(cors())
   .route("/stats", stats)
   .route("/media", media)
+  .route("/books", books)
   .route("/films", films)
   .route("/manga", manga)
   .notFound((c) => c.json({ error: "Not found" }, 404));
