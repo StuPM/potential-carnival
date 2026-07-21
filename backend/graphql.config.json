@@ -1,0 +1,4 @@
+{
+  "schema": "src/graphql/hardcover.graphql",
+  "documents": "src/**/*.ts"
+}

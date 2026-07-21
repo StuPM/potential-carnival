@@ -20,11 +20,12 @@ model Media {
   film         Film?
   manga        Manga?
   mediaHistory MediaHistory[]
+  books        Book?
 }
 
 model Film {
   id               String   @id
-  externalId           Int      @unique
+  externalId       Int      @unique
   title            String
   originalTitle    String
   originalLanguage String
@@ -33,7 +34,7 @@ model Film {
   releaseDate      DateTime
   watchedCount     Int      @default(1)
   genres           String[]
-  media Media @relation(fields: [id], references: [id], onDelete: Cascade)
+  media            Media    @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
 model Manga {
@@ -47,6 +48,19 @@ model Manga {
   releaseDate      DateTime
   genres           String[]
   media            Media    @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+model Book {
+  id         String @id
+  externalId String @unique
+  title      String
+
+  overview    String
+  posterPath  String   @unique
+  releaseDate DateTime
+  pages       Int
+  genres      String[]
+  media       Media    @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
 model MediaHistory {

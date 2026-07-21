@@ -29,3 +29,5 @@ lerna-debug.log*
 .vercel
 
 /src/generated/prisma
+
+hardcover-env.d.ts

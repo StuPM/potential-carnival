@@ -5,7 +5,14 @@
     "strict": true,
     "skipLibCheck": true,
     "types": ["node"],
-    "jsxImportSource": "hono/jsx"
+    "jsxImportSource": "hono/jsx",
+    "plugins": [
+      {
+        "name": "gql.tada/ts-plugin",
+        "schema": "./src/graphql/hardcover.graphql",
+        "tadaOutputLocation": "./src/graphql/hardcover-env.d.ts"
+      }
+    ]
   },
   "exclude": ["node_modules", "dist", "build", ".vercel"]
 }

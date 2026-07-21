@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "name": "Backend Api",
+      "path": "backend",
+    },
+    {
+      "name": "Frontend App",
+      "path": "frontend",
+    },
+  ],
+  "settings": {
+    "typescript.tsdk": "node_modules/typescript/lib",
+  },
+}

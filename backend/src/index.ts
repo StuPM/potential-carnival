@@ -9,6 +9,7 @@ import { createMediaFactory } from "./routes/factory.js";
 
 import stats from "./routes/stats.js";
 import media from "./routes/media.js";
+import books from "./routes/books.js";
 import filmsRouter from "./routes/films.js";
 import mangaRouter from "./routes/manga.js";
 
@@ -33,6 +34,7 @@ const app = new Hono()
   .use(cors())
   .route("/stats", stats)
   .route("/media", media)
+  .route("/books", books)
   .route("/films", films)
   .route("/manga", manga)
   .notFound((c) => c.json({ error: "Not found" }, 404));
