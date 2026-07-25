@@ -52,21 +52,15 @@
   <!-- <section id="spacer"></section> -->
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import viteLogo from "../assets/vite.svg";
-import heroImg from "../assets/hero.png";
-import vueLogo from "../assets/vue.svg";
-
 import TitleBlock from "./TitleBlock.vue";
 import Search from "./SearchBar.vue";
 import DataBlock from "./DataBlock.vue";
 import Footer from "./Footer.vue";
-
-const count = ref(0);
 </script>
 
 <style sass>
 body {
   /* background-image: url("../test/mockup.svg"); */
+  border: 1px solid black;
 }
 </style>

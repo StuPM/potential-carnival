@@ -19,7 +19,8 @@
 <script setup lang="ts">
 import { formatDistance, subDays } from "date-fns";
 import { onMounted, ref } from "vue";
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const BACKEND_URL = import.meta.env.VITE_API_BACKEND_URL;
 /**
  * TODO
  * Can we make it type out when we load for an effect
@@ -27,8 +28,8 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
  */
 
 interface ApiStats {
-  lastUpdated: String;
-  totalEntries: Number;
+  lastUpdated: string; 
+  totalEntries: number; 
 }
 
 const stats = ref<ApiStats | null>(null);
@@ -46,7 +47,7 @@ onMounted(async () => {
   console.log("I am mounted");
 
   try {
-    const res = await fetch(`${BASE_URL}stats`);
+    const res = await fetch(`${BACKEND_URL}stats`);
     if (!res.ok) throw new Error("Failed to fetch stats");
 
     stats.value = await res.json();
