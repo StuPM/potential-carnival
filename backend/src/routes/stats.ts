@@ -2,9 +2,9 @@ import { Hono } from "hono";
 import prisma from "../lib/prisma.js";
 
 /**
- * TODO Further stats possibilites 
- *     - Pull these into own api routes * 
- * 
+ * TODO Further stats possibilites
+ *     - Pull these into own api routes *
+ *
  * Average rating
  * rating distrubition
  * Entries this year
@@ -12,10 +12,10 @@ import prisma from "../lib/prisma.js";
  * Reviews
  * Rewatches
  * Current streak
- * 
+ *
  * Breakdown by type
  * Average rating per type
- * 
+ *
  * Top Genres
  * Films by release
  * Langues
@@ -23,15 +23,19 @@ import prisma from "../lib/prisma.js";
  */
 
 const app = new Hono().get("/", async (c) => {
-  const [lastUpdated, totalEntries] = await Promise.all([
+  const [lastCreated, totalEntries, firstCreated] = await Promise.all([
     prisma.mediaHistory.findFirst({
       orderBy: { created: "desc" },
     }),
     prisma.mediaHistory.count(),
+    prisma.mediaHistory.findFirst({
+      orderBy: { created: "asc" },
+    }),
   ]);
 
   return c.json({
-    lastUpdated : lastUpdated?.finished , 
+    firstCreated: firstCreated?.finished,
+    lastCreated: lastCreated?.finished,
     totalEntries,
   });
 });
