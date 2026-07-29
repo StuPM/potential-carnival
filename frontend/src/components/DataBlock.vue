@@ -1,6 +1,15 @@
 <template>
   <table>
     <thead>
+      <tr v-for="headerGroup in table.getHeaderGroups()">
+        <th v-for="header in headerGroup.headers">
+          <FlexRender
+            v-if="!header.isPlaceholder"
+            :render="header.column.columnDef.header"
+            :props="header.getContext()"
+          />
+        </th>
+      </tr>
       <!-- <tr v-for=""></tr> -->
     </thead>
     <tbody>
@@ -31,7 +40,7 @@ import {
 } from "@tanstack/vue-table";
 import { onMounted, ref } from "vue";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_BACKEND_URL;
 
 type MediaRecord = {
   id: string;
@@ -43,23 +52,61 @@ const tableData = ref<MediaRecord[]>([]);
 
 const columnHelper = createColumnHelper<MediaRecord>();
 
-const defaultColumns = ref([
-  columnHelper.accessor("id", {
-    header: "TEST",
-  }),
-]);
+// const defaultColumns = ref([
+//   columnHelper.accessor("id", {
+//     header: "TEST",
+//   }),
+// ]);
+
+const columns = [
+  {
+    accessorKey: "date",
+    header: "Date",
+  },
+  {
+    accessorKey: "type",
+    header: "Type",
+  },
+  {
+    accessorKey: "details.title",
+    header: "Title",
+  },
+
+  {
+    accessorKey: "details.director",
+    header: "Director",
+  },
+
+  {
+    accessorKey: "where",
+    header: "Where",
+  },
+  {
+    accessorKey: "rating",
+    header: "Rating",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+];
 
 const table = useVueTable({
   get data() {
     return tableData.value;
   },
-  get columns() {
-    return defaultColumns.value;
-  },
+  columns,
   getCoreRowModel: getCoreRowModel(),
 });
 
+import { backendAPIRoutes } from "../utils/media";
+
+const { fetchMedia } = backendAPIRoutes();
+
 onMounted(async () => {
+  let test = await fetchMedia();
+  console.log(test);
+
   try {
     const res = await fetch(`${BASE_URL}media`);
     if (!res.ok) throw new Error("   ");

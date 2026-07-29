@@ -5,7 +5,7 @@
     <div>book</div>
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 /**
  * TODO
  * When I load, get the tags from the database or push up from Dashboard
