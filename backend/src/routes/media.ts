@@ -7,19 +7,30 @@ const app = new Hono().get("/", async (c) => {
   // TODO What if we cant find any?
   // TODO We can likely get rid of the get("/") in the factory
 
-  // TODO Look through the enum so that we dont have to edit this every table change 
-  const res = await prisma.media.findMany({
+  // TODO Look through the enum so that we dont have to edit this every table change
+  const res = await prisma.mediaHistory.findMany({
+    orderBy: {
+      finished: "desc",
+    },
     include: {
-      film: true,
-      manga: true
+      media: {
+        include: {
+          film: true,
+          manga: true,
+        },
+      },
     },
   });
 
-  const mediaFiltered = res.map(({ film, manga, ...media }) => {
+  // Flattern the history record and remove the blank include record
+  const mediaFiltered = res.map(({ media, ...history }) => {
+    const details = media.film ?? media.manga;
 
-    const details = film ? film : manga
-
-    return { ...media, details};
+    // Keep type even though we could derive it from the id
+    return {
+      ...history,
+      media: { ...details, type: media.type },
+    };
   });
 
   return c.json(mediaFiltered);
