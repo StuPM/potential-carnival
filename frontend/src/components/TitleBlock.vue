@@ -8,40 +8,66 @@
         Last updated:
         {{ stats?.lastUpdated ? dateDaysAgo(stats.lastUpdated) : "Loading..." }}
       </p>
+      <p>date2 {{ dates2 }}</p>
+      <NumberFlow :value="stats?.lastUpdated" />
     </section>
     <section class="tracked">
       <p>tracked by Stuart</p>
       <p>since 2022</p>
-      <p>{{ stats?.totalEntries || 0 }} entries</p>
+      <p><NumberFlow :value="stats?.totalEntries" /> entries</p>
     </section>
   </header>
 </template>
 <script setup lang="ts">
-import { formatDistance, subDays } from "date-fns";
-import { onMounted, ref } from "vue";
+import {
+  differenceInDays,
+  formatDistance,
+  formatDistanceToNow,
+  subDays,
+} from "date-fns";
+import { computed, onMounted, ref } from "vue";
+import NumberFlow from "@number-flow/vue";
 
 const BACKEND_URL = import.meta.env.VITE_API_BACKEND_URL;
 /**
  * TODO
- * Can we make it type out when we load for an effect
  * Since is the first media history record
  */
-
 interface ApiStats {
-  lastUpdated: string;
+  lastUpdated: number;
   totalEntries: number;
 }
 
-const stats = ref<ApiStats | null>(null);
+const defaultApiStats: ApiStats = {
+  lastUpdated: subDays(new Date(), 100),
+  totalEntries: 0,
+};
+
+const stats = ref<ApiStats>({ ...defaultApiStats });
 
 const dateDaysAgo = (lastUpdated: string) => {
   let test = formatDistance(subDays(new Date(lastUpdated), 3), new Date(), {
-    addSuffix: true,
+    addSuffix: false,
   });
 
-  console.log(test);
+  console.log("TEST", test);
   return test;
 };
+
+const dates2 = computed(() => {
+  const today = new Date();
+  console.log(stats.value.lastUpdated);
+
+  let temp = formatDistanceToNow(stats.value.lastUpdated, { addSuffix : true});
+  // console.log(temp);
+
+  // get out the 3 values
+  console.log(temp.match(/^(.*?)(?<value>\d+)(.*)$/))
+  // console.log(/^(.*?)(\d+)(.*)$/.exec(temp))
+
+
+  return temp
+});
 
 onMounted(async () => {
   console.log("I am mounted");
