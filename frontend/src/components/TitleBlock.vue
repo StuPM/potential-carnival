@@ -4,12 +4,16 @@
       <p>stuart@myFiles</p>
       <p class="test">Personal media log. Films watched, books read.</p>
       <p class="test">Public read-only. Admin access requires auth.</p>
+      <!-- TODO Hide before loaded -->
       <p class="test">
         Last updated:
-        {{ stats?.lastUpdated ? dateDaysAgo(stats.lastUpdated) : "Loading..." }}
+        <NumberFlow
+          :prefix="stats?.prefix"
+          :value="stats?.daysAgo"
+          :suffix="stats?.suffix"
+        />
       </p>
-      <p>date2 {{ dates2 }}</p>
-      <NumberFlow :value="stats?.lastUpdated" />
+      >
     </section>
     <section class="tracked">
       <p>tracked by Stuart</p>
@@ -19,55 +23,44 @@
   </header>
 </template>
 <script setup lang="ts">
-import {
-  differenceInDays,
-  formatDistance,
-  formatDistanceToNow,
-  subDays,
-} from "date-fns";
-import { computed, onMounted, ref } from "vue";
+import { formatDistanceToNow } from "date-fns";
+import { onMounted, ref } from "vue";
 import NumberFlow from "@number-flow/vue";
 
 const BACKEND_URL = import.meta.env.VITE_API_BACKEND_URL;
-/**
- * TODO
- * Since is the first media history record
- */
+
 interface ApiStats {
-  lastUpdated: number;
+  lastUpdated: string;
   totalEntries: number;
+  prefix: string;
+  daysAgo: number;
+  suffix: string;
 }
 
 const defaultApiStats: ApiStats = {
-  lastUpdated: subDays(new Date(), 100),
+  lastUpdated: "",
   totalEntries: 0,
+  prefix: "",
+  daysAgo: 0,
+  suffix: "",
 };
 
 const stats = ref<ApiStats>({ ...defaultApiStats });
 
-const dateDaysAgo = (lastUpdated: string) => {
-  let test = formatDistance(subDays(new Date(lastUpdated), 3), new Date(), {
-    addSuffix: false,
+/**
+ * Compute distance between a date and now, then pull out the results via regex and
+ * @param inputDate string iso date
+ */
+const distanceBetweenDates = (inputDate: string) => {
+  const distance = formatDistanceToNow(inputDate, {
+    addSuffix: true,
   });
 
-  console.log("TEST", test);
-  return test;
+  const matches = distance.match(
+    /^(?<prefex>.*?)(?<daysAgo>\d+)(?<suffix>.*)$/,
+  );
+  return matches?.groups;
 };
-
-const dates2 = computed(() => {
-  const today = new Date();
-  console.log(stats.value.lastUpdated);
-
-  let temp = formatDistanceToNow(stats.value.lastUpdated, { addSuffix : true});
-  // console.log(temp);
-
-  // get out the 3 values
-  console.log(temp.match(/^(.*?)(?<value>\d+)(.*)$/))
-  // console.log(/^(.*?)(\d+)(.*)$/.exec(temp))
-
-
-  return temp
-});
 
 onMounted(async () => {
   console.log("I am mounted");
@@ -76,7 +69,9 @@ onMounted(async () => {
     const res = await fetch(`${BACKEND_URL}stats`);
     if (!res.ok) throw new Error("Failed to fetch stats");
 
-    stats.value = await res.json();
+    const temp = await res.json();
+
+    stats.value = { ...distanceBetweenDates(temp.lastUpdated), ...temp };
   } catch (error) {
     console.error("Error fetching stats:", error);
   }
