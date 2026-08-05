@@ -1,32 +1,31 @@
 <template>
   <table>
     <thead>
-      <tr v-for="headerGroup in table.getHeaderGroups()">
-        <th v-for="header in headerGroup.headers">
-          <FlexRender
-            v-if="!header.isPlaceholder"
-            :render="header.column.columnDef.header"
-            :props="header.getContext()"
-          />
+      <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
+        <th
+          v-for="header in headerGroup.headers"
+          :key="header.id"
+          :class="header.column.getCanSort() ? 'sortable-header' : ''"
+          @click="header.column.getToggleSortingHandler()?.($event)"
+        >
+          <template v-if="!header.isPlaceholder">
+            <FlexRender :header="header" />
+            {{
+              { asc: " 🔼", desc: " 🔽" }[header.column.getIsSorted() as string]
+            }}
+          </template>
         </th>
       </tr>
-      <!-- <tr v-for=""></tr> -->
     </thead>
     <tbody>
-      <tr v-for="row in table.getRowModel().rows">
-        <td v-for="cell in row.getVisibleCells()">
-          <FlexRender
-            :render="cell.column.columnDef.cell"
-            :props="cell.getContext()"
-          />
+      <tr
+        v-for="row in table.getRowModel().rows"
+        :key="row.id"
+        v-on:click="test(row.original)"
+      >
+        <td v-for="cell in row.getAllCells()" :key="cell.id">
+          <FlexRender :cell="cell" />
         </td>
-        <!-- <td>2021-01-01</td>
-        <td>Film</td>
-        <td>The Matrix</td>
-        <td>Director</td>
-        <td>Cinema</td>
-        <td>10</td>
-        <td>Rewatch</td> -->
       </tr>
     </tbody>
   </table>
@@ -34,87 +33,102 @@
 <script setup lang="ts">
 import {
   createColumnHelper,
-  getCoreRowModel,
   FlexRender,
-  useVueTable,
+  useTable,
+  tableFeatures,
+  type ColumnDef,
+  createSortedRowModel,
+  sortFn_datetime,
+  rowSortingFeature,
+  sortFn_alphanumeric,
+  sortFn_text,
 } from "@tanstack/vue-table";
 import { onMounted, ref } from "vue";
 
-const BASE_URL = import.meta.env.VITE_API_BACKEND_URL;
+import { backendAPIRoutes } from "../utils/media";
+import { format } from "date-fns";
+
+const { fetchMedia } = backendAPIRoutes();
+
+type innerMediaRecord = {
+  type: "manga" | "film";
+  title: string;
+  director: string; // TODO
+};
 
 type MediaRecord = {
-  id: string;
-  type: string;
   created: string;
+  finished: string;
+  id: string;
+  location: "cinema" | "home";
+  media: innerMediaRecord;
+  rating: number;
+  review: string;
 };
 
 const tableData = ref<MediaRecord[]>([]);
 
-const columnHelper = createColumnHelper<MediaRecord>();
+const features = tableFeatures({
+  rowSortingFeature,
+  sortedRowModel: createSortedRowModel(),
+  sortFns: {
+    alphanumeric: sortFn_alphanumeric,
+    text: sortFn_text,
+    datetime: sortFn_datetime,
+  },
+});
 
-// const defaultColumns = ref([
-//   columnHelper.accessor("id", {
-//     header: "TEST",
-//   }),
-// ]);
+const columnHelper = createColumnHelper<typeof features, MediaRecord>();
 
-const columns = [
-  {
-    accessorKey: "date",
-    header: "Date",
-  },
-  {
-    accessorKey: "type",
-    header: "Type",
-  },
-  {
-    accessorKey: "details.title",
-    header: "Title",
-  },
+const columns: Array<ColumnDef<typeof features, MediaRecord>> =
+  columnHelper.columns([
+    columnHelper.accessor(
+      (row) => (row.finished ? format(row?.finished, "yyyy-MM-dd") : ""),
+      {
+        id: "date",
+        header: "Date",
+        sortFn: "datetime",
+      },
+    ),
+    columnHelper.accessor("media.type", {
+      header: "Type",
+      enableSorting: false,
+    }),
+    columnHelper.accessor("media.title", {
+      header: "Title",
+      enableSorting: false,
+    }),
+    columnHelper.accessor((row) => row.media?.director ?? "TEST", {
+      id: "director",
+      header: "Director",
+      enableSorting: false,
+    }),
+    columnHelper.accessor((row) => row?.location?.toUpperCase(), {
+      id: "location",
+      header: "Where",
+      enableSorting: false,
+    }),
+    columnHelper.accessor("rating", { header: "Rating" }),
+  ]);
 
-  {
-    accessorKey: "details.director",
-    header: "Director",
-  },
-
-  {
-    accessorKey: "where",
-    header: "Where",
-  },
-  {
-    accessorKey: "rating",
-    header: "Rating",
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-  },
-];
-
-const table = useVueTable({
+const table = useTable({
+  features,
   get data() {
     return tableData.value;
   },
   columns,
-  getCoreRowModel: getCoreRowModel(),
 });
 
-import { backendAPIRoutes } from "../utils/media";
-
-const { fetchMedia } = backendAPIRoutes();
+// TODO Add model
+const test = (row: any) => {
+  console.log(row);
+};
 
 onMounted(async () => {
-  let test = await fetchMedia();
-  console.log(test);
-
   try {
-    const res = await fetch(`${BASE_URL}media`);
-    if (!res.ok) throw new Error("   ");
-
-    tableData.value = await res.json();
+    tableData.value = await fetchMedia();
   } catch (error) {
-    console.log("", error);
+    console.error("Failed to fetch media:", error);
   }
 });
 </script>
-<style sass></style>

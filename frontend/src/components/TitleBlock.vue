@@ -17,31 +17,43 @@
     </section>
     <section class="tracked">
       <p>tracked by Stuart</p>
-      <p>since 2022</p>
+      <p>
+        since
+        <NumberFlow
+          :value="stats?.firstCreated"
+          :format="{ useGrouping: false }"
+        />
+      </p>
+
       <p><NumberFlow :value="stats?.totalEntries" /> entries</p>
     </section>
   </header>
 </template>
 <script setup lang="ts">
-import { formatDistanceToNow } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import { onMounted, ref } from "vue";
 import NumberFlow from "@number-flow/vue";
+import { backendAPIRoutes } from "../utils/media";
 
-const BACKEND_URL = import.meta.env.VITE_API_BACKEND_URL;
+const { fetchStats } = backendAPIRoutes();
 
 interface ApiStats {
-  lastUpdated: string;
+  firstCreated: number;
+  lastCreated: string;
   totalEntries: number;
+
   prefix: string;
   daysAgo: number;
   suffix: string;
 }
 
 const defaultApiStats: ApiStats = {
-  lastUpdated: "",
+  firstCreated: 1991,
+  lastCreated: "",
   totalEntries: 0,
-  prefix: "",
+
   daysAgo: 0,
+  prefix: "",
   suffix: "",
 };
 
@@ -63,15 +75,12 @@ const distanceBetweenDates = (inputDate: string) => {
 };
 
 onMounted(async () => {
-  console.log("I am mounted");
-
   try {
-    const res = await fetch(`${BACKEND_URL}stats`);
-    if (!res.ok) throw new Error("Failed to fetch stats");
+    const res = await fetchStats();
 
-    const temp = await res.json();
+    res["firstCreated"] = format(res?.firstCreated, "yyyy");
 
-    stats.value = { ...distanceBetweenDates(temp.lastUpdated), ...temp };
+    stats.value = { ...distanceBetweenDates(res.lastCreated), ...res };
   } catch (error) {
     console.error("Error fetching stats:", error);
   }

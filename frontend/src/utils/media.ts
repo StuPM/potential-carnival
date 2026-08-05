@@ -3,7 +3,7 @@ import { ref } from "vue";
 const BASE_URL = import.meta.env.VITE_API_BACKEND_URL;
 
 function useApi() {
-  const data = ref(null);
+  const data = ref<any>(null);
   const error = ref(null);
   const loading = ref(false);
 
