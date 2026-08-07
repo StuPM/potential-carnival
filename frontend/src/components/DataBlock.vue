@@ -29,6 +29,9 @@
       </tr>
     </tbody>
   </table>
+  <!-- <Model :open="modelOpen" @close="modelOpen = false" :data="clickedRow" /> -->
+
+  <MediaModel v-if="modelOpen" :open="modelOpen" @close="modelOpen = false" :data="clickedRow" />
 </template>
 <script setup lang="ts">
 import {
@@ -47,6 +50,9 @@ import { onMounted, ref } from "vue";
 
 import { backendAPIRoutes } from "../utils/media";
 import { format } from "date-fns";
+
+import Model from "./Modal.vue";
+import MediaModel from "./MediaModel.vue";
 
 const { fetchMedia } = backendAPIRoutes();
 
@@ -119,9 +125,14 @@ const table = useTable({
   columns,
 });
 
+const modelOpen = ref(false);
+const clickedRow = ref(null);
+
 // TODO Add model
 const test = (row: any) => {
   console.log(row);
+  modelOpen.value = !modelOpen.value;
+  clickedRow.value = row.mediaId;
 };
 
 onMounted(async () => {
