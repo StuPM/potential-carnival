@@ -12,7 +12,7 @@ import media from "./routes/media.js";
 import filmsRouter from "./routes/films.js";
 import mangaRouter from "./routes/manga.js";
 
-const films = createMediaFactory({
+const film = createMediaFactory({
   model: prisma.film, // Pass in the relevant prisma information
   prefix: MEDIATYPE.film, // Prefix used in the id
   routes: filmsRouter, // Specific film routes
@@ -33,7 +33,7 @@ const app = new Hono()
   .use(cors())
   .route("/stats", stats)
   .route("/media", media)
-  .route("/films", films)
+  .route("/film", film)
   .route("/manga", manga)
   .notFound((c) => c.json({ error: "Not found" }, 404));
 
