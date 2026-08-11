@@ -50,8 +50,6 @@ import { onMounted, ref } from "vue";
 
 import { backendAPIRoutes } from "../utils/media";
 import { format } from "date-fns";
-
-import Model from "./Modal.vue";
 import MediaModel from "./MediaModel.vue";
 
 const { fetchMedia } = backendAPIRoutes();

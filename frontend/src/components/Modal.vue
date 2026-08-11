@@ -11,6 +11,7 @@
       <DialogOverlay class="dialog__overlay" />
       <DialogContent class="dialog__content" :class="className">
         <DialogTitle><slot name="title">Details</slot></DialogTitle>
+        <DialogDescription ><slot name="description"></slot></DialogDescription>
 
         <slot />
 
@@ -30,7 +31,6 @@ import {
   DialogContent,
   DialogTitle,
   DialogDescription,
-  DialogClose,
 } from "reka-ui";
 
 defineProps<{ open: boolean; className: string }>();
