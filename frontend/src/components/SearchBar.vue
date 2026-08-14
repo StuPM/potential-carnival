@@ -2,14 +2,17 @@
   <section>
     <search>
       <label for="search">search~$</label>
-      <input type="search" id="search" />
+      <input type="search" id="search" v-model="store.filterString" />
     </search>
-    <tag-list></tag-list>
+    <tag-list />
   </section>
 </template>
 <script setup lang="ts">
 import TagList from "./TagList.vue";
 
+
+import { useMediaStore } from "../store/pinia.ts";
+const store = useMediaStore()
 /**
  * TODO
  * Search string to filter the existing data
