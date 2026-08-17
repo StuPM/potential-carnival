@@ -18,8 +18,12 @@ const app = new Hono()
       `https://api.mangadex.org/manga?title=${encodeURIComponent(query)}&includes[]=author&includes[]=cover_art&includes[]=artist`,
     );
 
-    const data = await res.json();
+    if (!res.ok) {
+        const status = res.status === 404 ? 400 : 502;
+        return c.json({ message: "Manga not found on MANGADEX" }, status);
+      }
 
+    const data = await res.json();
     return c.json(data.data);
   })
   .post(
