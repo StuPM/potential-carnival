@@ -33,7 +33,7 @@ const app = new Hono()
   .use(
     cors({
       origin: ["http://localhost:5173", "https://trackmyfilms.spmcgee.dev"],
-      allowMethods: ["GET", "POST", "PUT", "DELETE"],
+      allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowHeaders: ["Content-Type", "Authorization"],
     }),
   )
