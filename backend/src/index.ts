@@ -30,7 +30,13 @@ const manga = createMediaFactory({
 const app = new Hono()
   .use(logger())
   // TODO Flesh out cors further to make it more secure
-  .use(cors())
+  .use(
+    cors({
+      origin: ["http://localhost:5173", "https://trackmyfilms.spmcgee.dev"],
+      allowMethods: ["GET", "POST", "PUT", "DELETE"],
+      allowHeaders: ["Content-Type", "Authorization"],
+    }),
+  )
   .route("/stats", stats)
   .route("/media", media)
   .route("/film", film)
