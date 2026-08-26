@@ -4,7 +4,7 @@ const BASE_URL = import.meta.env.VITE_API_BACKEND_URL;
 
 function useApi() {
   const data = ref<any>(null);
-  const error = ref(null);
+  const error = ref<unknown>(null);
   const loading = ref(false);
 
   async function request(method: string, path: string, body?: object) {
@@ -18,7 +18,7 @@ function useApi() {
         body: body ? JSON.stringify(body) : undefined,
       });
 
-      if (!res.ok) throw new Error(res);
+      if (!res.ok) throw new Error(`Request failed: ${res.status} ${res.statusText}`);
       data.value = await res.json();
       return data.value;
     } catch (e) {

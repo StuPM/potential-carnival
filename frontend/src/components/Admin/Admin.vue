@@ -1,7 +1,7 @@
 <template>
   <p>testing admin route</p>
 </template>
-<script setup>
+<script setup lang="ts">
 // TODO
 // Here we need a search bar
 // Toggle between which source we are sending
