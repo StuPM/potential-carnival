@@ -2,7 +2,7 @@
   <section>
     <search>
       <label for="search">search~$</label>
-      <input type="search" id="search" v-model="store.filterString" />
+      <input type="search" id="search" v-model="store.filterString" autocomplete="off" />
     </search>
     <tag-list />
   </section>

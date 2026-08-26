@@ -1,5 +1,5 @@
 <template>
-  <table>
+  <table v-if="!store.isMobile">
     <thead>
       <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
         <th v-for="header in headerGroup.headers" :key="header.id"
@@ -22,8 +22,27 @@
       </tr>
     </tbody>
   </table>
-   <MediaModal v-if="!!clickedRowId" :open="!!clickedRowId" @close="clickedRowId = ''" :data="clickedRowId" />
-
+  <div v-else-if="store.isMobile">
+    <button v-for="row in table.getRowModel().rows" @click="rowClicked(row.original)">
+      <div>
+        <span>{{ row.getValue('title') }}</span>
+        <span>{{ row.getValue('type') }}</span>
+      </div>
+      <div>
+        <span>{{ row.getValue('date') }}</span>
+        <span>{{ row.getValue('director') }}</span>
+        <span>{{ row.getValue('location') }}</span>
+      </div>
+      <div>
+        <div class="bar">
+          <div class="rating" :style="{ width: (Number(row.getValue('rating')) * 10) + '%' }" />
+        </div>
+        <span>{{ row.getValue('rating') }}</span>
+        <span>{{ row.getValue('type') }}</span>
+      </div>
+    </button>
+  </div>
+  <MediaModal v-if="!!clickedRowId" :open="!!clickedRowId" @close="clickedRowId = ''" :data="clickedRowId" />
 </template>
 <script setup lang="ts">
 import {
@@ -46,6 +65,9 @@ import MediaModal from "./MediaModal.vue";
 import { type mediaRecord } from "../utils/types";
 import { backendAPIRoutes } from "../utils/media";
 const { fetchMedia } = backendAPIRoutes();
+
+import { useMediaStore } from '../store/pinia';
+const store = useMediaStore()
 
 // Stores the data once loaded
 const tableData = ref<mediaRecord[]>([]);
@@ -76,10 +98,12 @@ const columns: Array<ColumnDef<typeof features, mediaRecord>> =
       },
     ),
     columnHelper.accessor("media.type", {
+      id: "type",
       header: "Type",
       enableSorting: false,
     }),
     columnHelper.accessor("media.title", {
+      id: 'title',
       header: "Title",
       enableSorting: false,
     }),
@@ -88,12 +112,12 @@ const columns: Array<ColumnDef<typeof features, mediaRecord>> =
       header: "Director",
       enableSorting: false,
     }),
-    columnHelper.accessor((row) => row?.location?.toUpperCase(), {
+    columnHelper.accessor((row) => row?.location?.toUpperCase() ?? 'HOME', {
       id: "location",
       header: "Where",
       enableSorting: false,
     }),
-    columnHelper.accessor("rating", { header: "Rating" }),
+    columnHelper.accessor("rating", { id: 'rating', header: "Rating" }),
   ]);
 
 // Pull all the different parts of the table together

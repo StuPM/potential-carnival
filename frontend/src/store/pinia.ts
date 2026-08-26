@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
+import { useMediaQuery } from "@vueuse/core";
 
 import { type filterTag } from "../utils/types";
 
@@ -9,6 +10,7 @@ export const useMediaStore = defineStore("media", {
       count: 0,
       filterString: "",
       filterTag: "All" as filterTag,
+      isMobile: useMediaQuery("(max-width: 600px"),
     };
   },
   getters: {},
