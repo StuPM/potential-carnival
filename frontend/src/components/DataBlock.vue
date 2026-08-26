@@ -2,12 +2,9 @@
   <table>
     <thead>
       <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
-        <th
-          v-for="header in headerGroup.headers"
-          :key="header.id"
+        <th v-for="header in headerGroup.headers" :key="header.id"
           :class="header.column.getCanSort() ? 'sortable-header' : ''"
-          @click="header.column.getToggleSortingHandler()?.($event)"
-        >
+          @click="header.column.getToggleSortingHandler()?.($event)">
           <template v-if="!header.isPlaceholder">
             <FlexRender :header="header" />
             {{
@@ -18,20 +15,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr
-        v-for="row in table.getRowModel().rows"
-        :key="row.id"
-        v-on:click="test(row.original)"
-      >
+      <tr v-for="row in table.getRowModel().rows" :key="row.id" v-on:click="rowClicked(row.original)">
         <td v-for="cell in row.getAllCells()" :key="cell.id">
           <FlexRender :cell="cell" />
         </td>
       </tr>
     </tbody>
   </table>
-  <!-- <Model :open="modelOpen" @close="modelOpen = false" :data="clickedRow" /> -->
+   <MediaModal v-if="!!clickedRowId" :open="!!clickedRowId" @close="clickedRowId = ''" :data="clickedRowId" />
 
-  <MediaModel v-if="modelOpen" :open="modelOpen" @close="modelOpen = false" :data="clickedRow" />
 </template>
 <script setup lang="ts">
 import {
@@ -47,31 +39,18 @@ import {
   sortFn_text,
 } from "@tanstack/vue-table";
 import { onMounted, ref } from "vue";
-
-import { backendAPIRoutes } from "../utils/media";
 import { format } from "date-fns";
-import MediaModel from "./MediaModel.vue";
 
+import MediaModal from "./MediaModal.vue";
+
+import { type mediaRecord } from "../utils/types";
+import { backendAPIRoutes } from "../utils/media";
 const { fetchMedia } = backendAPIRoutes();
 
-type innerMediaRecord = {
-  type: "manga" | "film";
-  title: string;
-  director: string; // TODO
-};
+// Stores the data once loaded
+const tableData = ref<mediaRecord[]>([]);
 
-type MediaRecord = {
-  created: string;
-  finished: string;
-  id: string;
-  location: "cinema" | "home";
-  media: innerMediaRecord;
-  rating: number;
-  review: string;
-};
-
-const tableData = ref<MediaRecord[]>([]);
-
+// Table features - Mostly sorting functionality at the moment
 const features = tableFeatures({
   rowSortingFeature,
   sortedRowModel: createSortedRowModel(),
@@ -82,9 +61,11 @@ const features = tableFeatures({
   },
 });
 
-const columnHelper = createColumnHelper<typeof features, MediaRecord>();
+// Create a helper to merge the feature and record types together
+const columnHelper = createColumnHelper<typeof features, mediaRecord>();
 
-const columns: Array<ColumnDef<typeof features, MediaRecord>> =
+// Build the columns and what we want them to be able to do
+const columns: Array<ColumnDef<typeof features, mediaRecord>> =
   columnHelper.columns([
     columnHelper.accessor(
       (row) => (row.finished ? format(row?.finished, "yyyy-MM-dd") : ""),
@@ -115,6 +96,7 @@ const columns: Array<ColumnDef<typeof features, MediaRecord>> =
     columnHelper.accessor("rating", { header: "Rating" }),
   ]);
 
+// Pull all the different parts of the table together
 const table = useTable({
   features,
   get data() {
@@ -123,14 +105,12 @@ const table = useTable({
   columns,
 });
 
-const modelOpen = ref(false);
-const clickedRow = ref(null);
+// Toggle opening the modal when we click on a row 
+const clickedRowId = ref("");
 
-// TODO Add model
-const test = (row: any) => {
-  console.log(row);
-  modelOpen.value = !modelOpen.value;
-  clickedRow.value = row.mediaId;
+// TODO I reckon we can get rid of this function
+const rowClicked = (row: mediaRecord) => {
+  clickedRowId.value = row.mediaId;
 };
 
 onMounted(async () => {

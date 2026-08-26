@@ -1,23 +1,29 @@
 <template>
-  <DialogRoot
-    :open="open"
-    @update:open="
-      (v) => {
-        if (!v) $emit('close');
-      }
-    "
-  >
+  <DialogRoot :open="open" @update:open="
+    (v) => {
+      if (!v) $emit('close');
+    }
+  ">
     <DialogPortal>
       <DialogOverlay class="dialog__overlay" />
       <DialogContent class="dialog__content" :class="className">
-        <DialogTitle><slot name="title">Details</slot></DialogTitle>
-        <DialogDescription ><slot name="description"></slot></DialogDescription>
+        <DialogTitle v-if="title || $slots.title">
+          <slot name="title">{{ title }}</slot>
+        </DialogTitle>
+        <VisuallyHidden v-else>
+          <DialogTitle />
+        </VisuallyHidden>
+
+        <DialogDescription v-if="description || $slots.description">
+          <slot name="description">{{ description }}</slot>
+        </DialogDescription>
+        <VisuallyHidden v-else>
+          <DialogDescription />
+        </VisuallyHidden>
 
         <slot />
 
-        <slot name="footer" :close="() => $emit('close')">
-          <button @click="$emit('close')">Close</button>
-        </slot>
+        <button v-if="showClose" @click="$emit('close')">Close</button>
       </DialogContent>
     </DialogPortal>
   </DialogRoot>
@@ -31,9 +37,16 @@ import {
   DialogContent,
   DialogTitle,
   DialogDescription,
+  VisuallyHidden,
 } from "reka-ui";
 
-defineProps<{ open: boolean; className: string }>();
+defineProps<{
+  open: boolean;
+  className: string;
+  title?: string;
+  description?: string;
+  showClose?: boolean;
+}>();
 defineEmits<{ close: [] }>();
 </script>
 

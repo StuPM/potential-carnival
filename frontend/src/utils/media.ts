@@ -7,7 +7,7 @@ function useApi() {
   const error = ref(null);
   const loading = ref(false);
 
-  async function request(method, path, body) {
+  async function request(method: string, path: string, body?: object) {
     loading.value = true;
     error.value = null;
 
@@ -33,10 +33,10 @@ function useApi() {
     data,
     error,
     loading,
-    get: (path) => request("GET", path),
-    post: (path, body) => request("POST", path, body),
-    patch: (path, body) => request("PATCH", path, body),
-    del: (path) => request("DELETE", path),
+    get: (path: string) => request("GET", path),
+    post: (path: string, body: object) => request("POST", path, body),
+    patch: (path: string, body: object) => request("PATCH", path, body),
+    del: (path: string) => request("DELETE", path),
   };
 }
 
@@ -46,5 +46,6 @@ export function backendAPIRoutes() {
     ...api,
     fetchMedia: () => api.get("media"),
     fetchStats: () => api.get("stats"),
+    fetchCustom: (custom: string) => api.get(custom),
   };
 }

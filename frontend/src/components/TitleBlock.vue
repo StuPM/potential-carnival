@@ -7,11 +7,7 @@
       <!-- TODO Hide before loaded -->
       <p class="test">
         Last updated:
-        <NumberFlow
-          :prefix="stats?.prefix"
-          :value="stats?.daysAgo"
-          :suffix="stats?.suffix"
-        />
+        <NumberFlow :prefix="stats?.prefix" :value="stats?.daysAgo" :suffix="stats?.suffix" />
       </p>
       >
     </section>
@@ -19,13 +15,12 @@
       <p>tracked by Stuart</p>
       <p>
         since
-        <NumberFlow
-          :value="stats?.firstCreated"
-          :format="{ useGrouping: false }"
-        />
+        <NumberFlow :value="stats?.firstCreated" :format="{ useGrouping: false }" />
       </p>
 
-      <p><NumberFlow :value="stats?.totalEntries" /> entries</p>
+      <p>
+        <NumberFlow :value="stats?.totalEntries" /> entries
+      </p>
     </section>
   </header>
 </template>
@@ -33,21 +28,14 @@
 import { format, formatDistanceToNow } from "date-fns";
 import { onMounted, ref } from "vue";
 import NumberFlow from "@number-flow/vue";
-import { backendAPIRoutes } from "../utils/media";
 
+// TODO LOADING
+import { backendAPIRoutes } from "../utils/media";
 const { fetchStats } = backendAPIRoutes();
 
-interface ApiStats {
-  firstCreated: number;
-  lastCreated: string;
-  totalEntries: number;
+import { type apiStats } from "../utils/types";
 
-  prefix: string;
-  daysAgo: number;
-  suffix: string;
-}
-
-const defaultApiStats: ApiStats = {
+const defaultApiStats: apiStats = {
   firstCreated: 1991,
   lastCreated: "",
   totalEntries: 0,
@@ -57,7 +45,7 @@ const defaultApiStats: ApiStats = {
   suffix: "",
 };
 
-const stats = ref<ApiStats>({ ...defaultApiStats });
+const stats = ref<apiStats>({ ...defaultApiStats });
 
 /**
  * Compute distance between a date and now, then pull out the results via regex and

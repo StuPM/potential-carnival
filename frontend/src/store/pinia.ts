@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 
+import { type filterTag } from "../utils/types";
+
 export const useMediaStore = defineStore("media", {
   state: () => {
     return {
       count: 0,
       filterString: "",
-      filterTag: "All" as "All" | "film" | "book",
+      filterTag: "All" as filterTag,
     };
   },
   getters: {},

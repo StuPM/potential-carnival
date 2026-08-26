@@ -13,7 +13,8 @@ export default defineConfig({
     }),
   ],
   server: {
-    port: 8088,
+    // port: 8088,
+    cors: false,
     open: true,
   },
 });

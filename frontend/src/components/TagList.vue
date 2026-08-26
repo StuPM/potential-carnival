@@ -1,23 +1,19 @@
 <template>
   <div class="tagList">
     <ToggleGroupRoot :model-value="store.filterTag" @update:model-value="(val) => {
-      if (val) store.filterTag = val
+      if (val) store.filterTag = val as filterTag
     }" :default-value="store.filterString">
       <ToggleGroupItem value="All">All</ToggleGroupItem>
       <ToggleGroupItem value="film">film</ToggleGroupItem>
       <ToggleGroupItem value="book">book</ToggleGroupItem>
-
-
-
     </ToggleGroupRoot>
-
   </div>
 </template>
 <script setup lang="ts">
-
 import { ToggleGroupRoot, ToggleGroupItem } from 'reka-ui';
 
 import { useMediaStore } from '../store/pinia';
+import type { filterTag } from '../utils/types';
 const store = useMediaStore()
 
 /**
@@ -27,7 +23,7 @@ const store = useMediaStore()
  * Should auto pickup new tables
  */
 </script>
-<style sass>
+<style>
 .tagList {
   display: flex;
   flex-direction: row;
