@@ -1,5 +1,25 @@
 <template>
+
+  <div class="test2">
+    <template v-for="item in tableData">
+      <!-- <div>{{ item.media.title }}</div> -->
+
+
+      <img v-if="item.media.type == 'film'" :src="'https://image.tmdb.org/t/p/w342/' + item.media.posterPath" />
+      <div v-else>{{ item.media.title }}</div>
+
+
+    </template>
+
+  </div>
+
+
+
   <table v-if="!store.isMobile">
+
+
+
+
     <thead>
       <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
         <th v-for="header in headerGroup.headers" :key="header.id"
@@ -145,3 +165,20 @@ onMounted(async () => {
   }
 });
 </script>
+
+<style lang="css">
+.test2 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))
+}
+
+
+.test2 img {
+  width: 100%;
+  aspect-ratio: 2 / 3;   /* TMDB posters are 2:3 */
+  object-fit: cover;     /* crop rather than stretch */
+  display: block;
+}
+
+</style>
