@@ -159,7 +159,10 @@ const rowClicked = (row: mediaRecord) => {
 
 onMounted(async () => {
   try {
-    tableData.value = await fetchMedia();
+    let temp = await fetchMedia()
+    tableData.value = temp.concat(temp).concat(temp)
+
+    // tableData.value = await fetchMedia();
   } catch (error) {
     console.error("Failed to fetch media:", error);
   }

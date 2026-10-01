@@ -1,10 +1,12 @@
 <template>
   <section>
+    <p>></p>
     <search>
-      <label for="search">search~$</label>
+      <label for="search">$</label>
       <input type="search" id="search" v-model="store.filterString" autocomplete="off" />
     </search>
-    <tag-list />
+    <!-- <tag-list /> -->
+    <p>filter</p>
   </section>
 </template>
 <script setup lang="ts">
@@ -22,7 +24,19 @@ const store = useMediaStore()
  */
 </script>
 <style scoped sass>
+
+.mobile section { 
+  width: 100%;
+
+  search {
+    width: 100%;
+  }
+
+}
+
 section {
   display: flex;
+
+  border: 1px solid pink;
 }
 </style>

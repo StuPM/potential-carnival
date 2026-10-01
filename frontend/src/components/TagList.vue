@@ -3,7 +3,7 @@
     <ToggleGroupRoot :model-value="store.filterTag" @update:model-value="(val) => {
       if (val) store.filterTag = val as filterTag
     }" :default-value="store.filterString">
-      <ToggleGroupItem value="All">All</ToggleGroupItem>
+      <!-- <ToggleGroupItem value="All">All</ToggleGroupItem> -->
       <ToggleGroupItem value="film">film</ToggleGroupItem>
       <ToggleGroupItem value="book">book</ToggleGroupItem>
     </ToggleGroupRoot>
