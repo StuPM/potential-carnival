@@ -7,9 +7,7 @@ export default defineConfig({
   plugins: [
     vue({
       template: {
-        compilerOptions: {
-          isCustomElement: (tag) => ["search"].includes(tag),
-        },
+        compilerOptions: {},
       },
     }),
     // Nuxt UI - components, icons and theme. Colours are Tailwind palette names
@@ -24,6 +22,7 @@ export default defineConfig({
   ],
   server: {
     // port: 8088,
+    port: 5173,
     cors: false,
     open: true,
   },

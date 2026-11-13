@@ -10,10 +10,18 @@ export type mediaRecord = {
 };
 
 type innerMediaRecord = {
-  type: "manga" | "film";
+  type: MediaType;
   title: string;
-  director: string; // TODO
+  originalLanguage: string;
+  originalTitle: string;
+  overview: string;
+  posterPath: string;
+  releaseDate: string;
+  genres: string[];
+  // director: string; // TODO
 };
+
+type MediaType = "film" | "manga" | "book";
 
 export type filterTag = "All" | "film" | "book";
 

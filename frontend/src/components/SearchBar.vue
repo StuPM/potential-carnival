@@ -1,20 +1,23 @@
 <template>
-  <section>
-    <p>></p>
-    <search>
-      <label for="search">$</label>
-      <input type="search" id="search" v-model="store.filterString" autocomplete="off" />
-    </search>
-    <!-- <tag-list /> -->
-    <p>filter</p>
+  <section class="fixed top-0 w-full flex flex-row align-middle
+  
+">
+    <UBadge icon="i-lucide-rocket" size="md" color="primary" variant="solid"></UBadge>
+
+    <!-- <UIcon name="i-lucide-lightbulb" class="size-5" /> -->
+
+    <UInput class="grow-2" v-model="store.searchString" />
+
+    <USelect />
   </section>
 </template>
 <script setup lang="ts">
-import TagList from "./TagList.vue";
 
 
 import { useMediaStore } from "../store/pinia.ts";
 const store = useMediaStore()
+
+
 /**
  * TODO
  * Search string to filter the existing data
@@ -23,20 +26,4 @@ const store = useMediaStore()
  * Can we use hashtags to search?
  */
 </script>
-<style scoped sass>
-
-.mobile section { 
-  width: 100%;
-
-  search {
-    width: 100%;
-  }
-
-}
-
-section {
-  display: flex;
-
-  border: 1px solid pink;
-}
-</style>
+<style scoped sass></style>

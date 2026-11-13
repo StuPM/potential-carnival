@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div>
-      <p>night</p>
+      <UColorModeButton />
     </div>
     <div>
       <p>info</p>

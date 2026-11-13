@@ -1,187 +1,80 @@
 <template>
 
-  <div class="test2">
-    <template v-for="item in tableData">
-      <!-- <div>{{ item.media.title }}</div> -->
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))]">
+    <div v-for="record in store.filtered" @click="clickOnRecord(record)">
+      <img v-if="record.media.type == 'film'" :src="'https://image.tmdb.org/t/p/w342/' + record.media.posterPath" />
+      <div v-else>{{ record.media.title }}</div>
+    </div>
 
+    <UModal v-model:open="drawerOpen" fullscreen :title="openRecord?.media?.title" :close="{
+      color: 'primary',
+      variant: 'outline',
+      class: 'rounded-full'
+    }">
 
-      <img v-if="item.media.type == 'film'" :src="'https://image.tmdb.org/t/p/w342/' + item.media.posterPath" />
-      <div v-else>{{ item.media.title }}</div>
-
-
-    </template>
+      <template #body>
+        <!-- <Placeholder class="h-48" /> -->
+      </template>
+    </UModal>
 
   </div>
-
-
-
-  <table v-if="!store.isMobile">
-
-
-
-
-    <thead>
-      <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
-        <th v-for="header in headerGroup.headers" :key="header.id"
-          :class="header.column.getCanSort() ? 'sortable-header' : ''"
-          @click="header.column.getToggleSortingHandler()?.($event)">
-          <template v-if="!header.isPlaceholder">
-            <FlexRender :header="header" />
-            {{
-              { asc: " 🔼", desc: " 🔽" }[header.column.getIsSorted() as string]
-            }}
-          </template>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="row in table.getRowModel().rows" :key="row.id" v-on:click="rowClicked(row.original)">
-        <td v-for="cell in row.getAllCells()" :key="cell.id">
-          <FlexRender :cell="cell" />
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div v-else-if="store.isMobile">
-    <button v-for="row in table.getRowModel().rows" @click="rowClicked(row.original)">
-      <div>
-        <span>{{ row.getValue('title') }}</span>
-        <span>{{ row.getValue('type') }}</span>
-      </div>
-      <div>
-        <span>{{ row.getValue('date') }}</span>
-        <span>{{ row.getValue('director') }}</span>
-        <span>{{ row.getValue('location') }}</span>
-      </div>
-      <div>
-        <div class="bar">
-          <div class="rating" :style="{ width: (Number(row.getValue('rating')) * 10) + '%' }" />
-        </div>
-        <span>{{ row.getValue('rating') }}</span>
-        <span>{{ row.getValue('type') }}</span>
-      </div>
-    </button>
-  </div>
-  <MediaModal v-if="!!clickedRowId" :open="!!clickedRowId" @close="clickedRowId = ''" :data="clickedRowId" />
 </template>
 <script setup lang="ts">
-import {
-  createColumnHelper,
-  FlexRender,
-  useTable,
-  tableFeatures,
-  type ColumnDef,
-  createSortedRowModel,
-  sortFn_datetime,
-  rowSortingFeature,
-  sortFn_alphanumeric,
-  sortFn_text,
-} from "@tanstack/vue-table";
-import { onMounted, ref } from "vue";
-import { format } from "date-fns";
 
-import MediaModal from "./MediaModal.vue";
-
-import { type mediaRecord } from "../utils/types";
-import { backendAPIRoutes } from "../utils/media";
-const { fetchMedia } = backendAPIRoutes();
-
+import { computed, onMounted, ref } from "vue";
+import type { mediaRecord } from "../utils/types";
 import { useMediaStore } from '../store/pinia';
 const store = useMediaStore()
 
-// Stores the data once loaded
-const tableData = ref<mediaRecord[]>([]);
+const openRecord = ref<mediaRecord | null>(null)
 
-// Table features - Mostly sorting functionality at the moment
-const features = tableFeatures({
-  rowSortingFeature,
-  sortedRowModel: createSortedRowModel(),
-  sortFns: {
-    alphanumeric: sortFn_alphanumeric,
-    text: sortFn_text,
-    datetime: sortFn_datetime,
-  },
-});
+/**
+ * Whether the drawer should open or not
+ * GET - True if a record is selected, otherwise false
+ * SET - Close the modal and clear openRecord
+ */
+const drawerOpen = computed({
+  get: () => openRecord.value !== null,
+  set: (open) => { if (!open) openRecord.value = null }
+})
 
-// Create a helper to merge the feature and record types together
-const columnHelper = createColumnHelper<typeof features, mediaRecord>();
+// Click on a record, save the record and open the modal
+const clickOnRecord = (record: mediaRecord) => {
+  console.log(record)
+  openRecord.value = record
+}
 
-// Build the columns and what we want them to be able to do
-const columns: Array<ColumnDef<typeof features, mediaRecord>> =
-  columnHelper.columns([
-    columnHelper.accessor(
-      (row) => (row.finished ? format(row?.finished, "yyyy-MM-dd") : ""),
-      {
-        id: "date",
-        header: "Date",
-        sortFn: "datetime",
-      },
-    ),
-    columnHelper.accessor("media.type", {
-      id: "type",
-      header: "Type",
-      enableSorting: false,
-    }),
-    columnHelper.accessor("media.title", {
-      id: 'title',
-      header: "Title",
-      enableSorting: false,
-    }),
-    columnHelper.accessor((row) => row.media?.director ?? "TEST", {
-      id: "director",
-      header: "Director",
-      enableSorting: false,
-    }),
-    columnHelper.accessor((row) => row?.location?.toUpperCase() ?? 'HOME', {
-      id: "location",
-      header: "Where",
-      enableSorting: false,
-    }),
-    columnHelper.accessor("rating", { id: 'rating', header: "Rating" }),
-  ]);
 
-// Pull all the different parts of the table together
-const table = useTable({
-  features,
-  get data() {
-    return tableData.value;
-  },
-  columns,
-});
+// Fetch the data for the supplied record
+// const fetchData = async () => {
+//   // Split on - but capture everything after as one group to counter multiple - filter off the empty string
+//   const splits = props.data.split(/-(.*)/).filter((x) => x);
 
-// Toggle opening the modal when we click on a row 
-const clickedRowId = ref("");
+//   try {
+//     await fetchCustom(`${splits[0]}/${splits[1]}?include=history,${splits[0]}`);
+//   } catch { }
 
-// TODO I reckon we can get rid of this function
-const rowClicked = (row: mediaRecord) => {
-  clickedRowId.value = row.mediaId;
-};
+// };
 
-onMounted(async () => {
-  try {
-    let temp = await fetchMedia()
-    tableData.value = temp.concat(temp).concat(temp)
-
-    // tableData.value = await fetchMedia();
-  } catch (error) {
-    console.error("Failed to fetch media:", error);
-  }
+onMounted(() => {
+  store.load()
 });
 </script>
 
 <style lang="css">
 .test2 {
   width: 100%;
-  display: grid;
+  /* display: grid; */
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))
 }
 
 
 .test2 img {
   width: 100%;
-  aspect-ratio: 2 / 3;   /* TMDB posters are 2:3 */
-  object-fit: cover;     /* crop rather than stretch */
+  aspect-ratio: 2 / 3;
+  /* TMDB posters are 2:3 */
+  object-fit: cover;
+  /* crop rather than stretch */
   display: block;
 }
-
 </style>
