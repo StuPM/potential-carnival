@@ -19,6 +19,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SearchBar: typeof import('./src/components/SearchBar.vue')['default']
     TitleBlock: typeof import('./src/components/TitleBlock.vue')['default']
+    UAccordion: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Accordion.vue')['default']
     UApp: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/App.vue')['default']
     UBadge: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Badge.vue')['default']
     UButton: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Button.vue')['default']
@@ -27,6 +28,7 @@ declare module 'vue' {
     UHeader: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Header.vue')['default']
     UIcon: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/vue/components/Icon.vue')['default']
     UInput: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Input.vue')['default']
+    UMarquee: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Marquee.vue')['default']
     UModal: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Modal.vue')['default']
     USelect: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Select.vue')['default']
   }

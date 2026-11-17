@@ -35,6 +35,9 @@ importers:
       vue-router:
         specifier: ^5.2.0
         version: 5.2.0(@vue/compiler-sfc@3.5.41)(esbuild@0.27.7)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.41(typescript@5.9.3)))(rolldown@1.2.3)(vite@8.2.0(@types/node@24.13.3)(esbuild@0.27.7)(jiti@2.7.0)(yaml@2.9.0))(vue@3.5.41(typescript@5.9.3))
+      vue3-marquee:
+        specifier: ^4.3.0
+        version: 4.3.0(vue@3.5.41(typescript@5.9.3))
     devDependencies:
       '@types/node':
         specifier: ^24.13.3
@@ -2120,6 +2123,12 @@ packages:
     peerDependencies:
       typescript: '>=5.0.0'
 
+  vue3-marquee@4.3.0:
+    resolution: {integrity: sha512-NSOU7irnmfQ8EI6Qd2K75Vdz5gP0MbiXpzjZLmO2RWCx27SWjoiQOb12gpSNdpSJAu6gNg40nadkKPpEI8kgrQ==}
+    engines: {node: '>=14.16'}
+    peerDependencies:
+      vue: ^3.2
+
   vue@3.5.41:
     resolution: {integrity: sha512-2laE0p+aK+/AOPG/XL/WepOs/GlK755LJ1XECi9kDUrz1FKNw8rb2Xzlw9JS1rqEV55nb0ttsKxVlTCcd+R5cg==}
     peerDependencies:
@@ -4186,6 +4195,10 @@ snapshots:
       '@volar/typescript': 2.4.28
       '@vue/language-core': 3.3.9
       typescript: 5.9.3
+
+  vue3-marquee@4.3.0(vue@3.5.41(typescript@5.9.3)):
+    dependencies:
+      vue: 3.5.41(typescript@5.9.3)
 
   vue@3.5.41(typescript@5.9.3):
     dependencies:

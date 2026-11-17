@@ -6,14 +6,42 @@
       <div v-else>{{ record.media.title }}</div>
     </div>
 
-    <UModal v-model:open="drawerOpen" fullscreen :title="openRecord?.media?.title" :close="{
+    <UModal v-model:open="drawerOpen" fullscreen :close="{
       color: 'primary',
       variant: 'outline',
       class: 'rounded-full'
-    }">
+    }" :ui="{ wrapper: 'flex-1 min-w-0 overflow-hidden', close: 'static shrink-0' }">
+
+      <template #title>
+        <Vue3Marquee :clone="true" :animate-on-overflow-only="true">
+          <span class="pr-12">{{ modalTitle }}</span>
+        </Vue3Marquee>
+      </template>
 
       <template #body>
-        <!-- <Placeholder class="h-48" /> -->
+        <div v-if="openRecord">
+          <div class="flex">
+            <img :src="openRecord.media.posterPath" />
+            <div>
+              <div>{{ openRecord.finished }}</div>
+              <div>{{ openRecord.location }}</div>
+            </div>
+
+
+          </div>
+
+          <UAccordion :items="[...openRecord.review]">
+            <template #body="{ item }">
+              This is the {{ item.label }} panel.
+            </template>
+          </UAccordion>
+
+        </div>
+
+        <!-- TODO TO SHOW -->
+        <!-- Description, rating, when, where -->
+        <!-- Review -->
+        <!-- History - Other records and review -->
       </template>
     </UModal>
 
@@ -43,6 +71,13 @@ const clickOnRecord = (record: mediaRecord) => {
   console.log(record)
   openRecord.value = record
 }
+
+const modalTitle = computed(() => {
+  if (openRecord.value?.media.title !== openRecord.value?.media.originalTitle) {
+    return openRecord.value?.media.title + ' / ' + openRecord.value?.media.originalTitle
+  }
+  return openRecord.value?.media.title
+})
 
 
 // Fetch the data for the supplied record
