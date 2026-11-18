@@ -28,6 +28,8 @@ declare module 'vue' {
     UHeader: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Header.vue')['default']
     UIcon: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/vue/components/Icon.vue')['default']
     UInput: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Input.vue')['default']
+    UInputRating: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/InputRating.vue')['default']
+    UInputTags: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/InputTags.vue')['default']
     UMarquee: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Marquee.vue')['default']
     UModal: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Modal.vue')['default']
     USelect: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Select.vue')['default']

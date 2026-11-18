@@ -19,29 +19,49 @@
       </template>
 
       <template #body>
-        <div v-if="openRecord">
+        <div v-if="openRecord" class="flex flex-col">
           <div class="flex">
-            <img :src="openRecord.media.posterPath" />
-            <div>
-              <div>{{ openRecord.finished }}</div>
-              <div>{{ openRecord.location }}</div>
+            <div class="flex flex-col relative w-1/2 aspect-[2/3] rounded-md overflow-hiddsen ">
+              <!-- TODO Could turn into component v-if="openRecord.media.type == 'film'" -->
+              <img class="w-full h-full object-cover"
+                :src="openRecord.media.posterPath ? 'https://image.tmdb.org/t/p/w342/' + openRecord.media.posterPath : '/poster-placeholder.svg'" />
+              <div>
+                <div>{{ format(parseISO(openRecord.finished), 'dd/MM/yyyy') }}</div>
+                <div>{{ openRecord.location }}</div>
+              </div>
             </div>
-
-
+            <div class="right flex flex-col">
+              <div>
+                <p>Rating:</p>
+                <UInputRating :step="0.5" v-model="modelReview" readonly hoverable />
+              </div>
+              <div>Release year</div>
+              <div>Length</div>
+              <div>Genres
+                <!-- todo fix this -->
+                <UBadge v-model="openRecord.media.genres" />
+              </div>
+              <div>Director</div>
+              <div>watch count</div>
+            </div>
           </div>
 
-          <UAccordion :items="[...openRecord.review]">
-            <template #body="{ item }">
-              This is the {{ item.label }} panel.
-            </template>
-          </UAccordion>
+          <section>
+            <h3>Synopsis</h3>
+            <p>{{ openRecord.media.overview }}</p>
+          </section>
+
+          <!-- v-if="openRecord.review" -->
+          <section>
+            <h3 class="font-semibold">Review</h3>
+            <p>{{ openRecord.review }}</p>
+          </section>
+
+          <section>
+            <h3>History</h3>
+          </section>
 
         </div>
-
-        <!-- TODO TO SHOW -->
-        <!-- Description, rating, when, where -->
-        <!-- Review -->
-        <!-- History - Other records and review -->
       </template>
     </UModal>
 
@@ -52,7 +72,9 @@
 import { computed, onMounted, ref } from "vue";
 import type { mediaRecord } from "../utils/types";
 import { useMediaStore } from '../store/pinia';
+import { format, parseISO } from "date-fns";
 const store = useMediaStore()
+
 
 const openRecord = ref<mediaRecord | null>(null)
 
@@ -79,6 +101,10 @@ const modalTitle = computed(() => {
   return openRecord.value?.media.title
 })
 
+
+const modelReview = computed(() => {
+  return Number(openRecord.value?.rating) / 2
+})
 
 // Fetch the data for the supplied record
 // const fetchData = async () => {
