@@ -35,14 +35,19 @@
                 <p>Rating:</p>
                 <UInputRating :step="0.5" v-model="modelReview" readonly hoverable />
               </div>
-              <div>Release year</div>
+              <div>Released: {{ format(parseISO(openRecord.finished), 'dd/MM/yyyy') }}</div>
               <div>Length</div>
               <div>Genres
                 <!-- todo fix this -->
-                <UBadge v-model="openRecord.media.genres" />
+                <template v-for="genre in openRecord.media.genres">
+                  <UBadge :label="genre.toUpperCase()" />
+                </template>
               </div>
-              <div>Director</div>
-              <div>watch count</div>
+              <!-- TODO Need to store this first -->
+              <!-- <div>Director</div> -->
+
+              <!-- TODO Need to get the information -->
+              <!-- <div>watch count</div> -->
             </div>
           </div>
 
