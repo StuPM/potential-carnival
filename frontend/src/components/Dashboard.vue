@@ -1,5 +1,5 @@
 <template>
-  <section id="center" :class="{ mobile: store.isMobile }">
+  <section id="center" class="pb-16" :class="{ mobile: store.isMobile }">
     <!-- <TitleBlock></TitleBlock> -->
     <!-- <p>@SPM - 1 film watched, 10 books read, 1 manga</p> -->
     <Search></Search>

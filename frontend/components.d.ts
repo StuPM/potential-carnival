@@ -14,6 +14,7 @@ declare module 'vue' {
     Admin: typeof import('./src/components/Admin/Admin.vue')['default']
     Dashboard: typeof import('./src/components/Dashboard.vue')['default']
     DataBlock: typeof import('./src/components/DataBlock.vue')['default']
+    FilterPill: typeof import('./src/components/FilterPill.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -25,6 +26,7 @@ declare module 'vue' {
     UButton: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Button.vue')['default']
     UColorModeButton: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/color-mode/ColorModeButton.vue')['default']
     UDrawer: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Drawer.vue')['default']
+    UFooter: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Footer.vue')['default']
     UHeader: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Header.vue')['default']
     UIcon: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/vue/components/Icon.vue')['default']
     UInput: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Input.vue')['default']
@@ -32,6 +34,8 @@ declare module 'vue' {
     UInputTags: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/InputTags.vue')['default']
     UMarquee: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Marquee.vue')['default']
     UModal: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Modal.vue')['default']
+    UPopover: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Popover.vue')['default']
     USelect: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Select.vue')['default']
+    USeparator: typeof import('./node_modules/.pnpm/@nuxt+ui@4.11.3_c89cb6a4e50f7de1b3c49f525a515918/node_modules/@nuxt/ui/dist/runtime/components/Separator.vue')['default']
   }
 }

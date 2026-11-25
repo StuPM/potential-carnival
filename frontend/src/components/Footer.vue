@@ -1,12 +1,18 @@
 <template>
-  <footer>
-    <div>
+  <UFooter :ui="{
+    root: 'fixed bottom-0 inset-x-0 z-50 bg-default border-t border-default',
+    container: 'flex items-center py-2 lg:py-2',
+    left: 'order-1 flex-1 mt-0 lg:justify-center',
+    center: 'order-2 flex-1 mt-0',
+    right: 'order-3 flex-1 lg:justify-center'
+  }">
+    <template #left>
       <UColorModeButton />
-    </div>
-    <div>
+    </template>
 
+    <template #default>
       <UDrawer>
-        <UButton label="Info" color="neutral" variant="subtle" trailing-icon="i-lucide-chevron-up" />
+        <UButton label="Info" color="neutral" variant="subtle" />
 
         <template #header>stuart@trackMyFilms</template>
 
@@ -18,11 +24,11 @@
           <p>Admin login</p>
         </template>
       </UDrawer>
-       
-    </div>
-    <div>
+    </template>
+
+    <template #right>
       <UDrawer>
-        <UButton label="Credits" color="neutral" variant="subtle" trailing-icon="i-lucide-chevron-up" />
+        <UButton label="Credits" color="neutral" variant="subtle" />
 
         <template #header>Credits</template>
 
@@ -32,31 +38,12 @@
           <p>MangaDex</p>
         </template>
       </UDrawer>
-    </div>
+    </template>
 
     <!-- <p>6 of 6 entries show</p>
     <p>Sorted by:</p>
     <RouterLink to="/admin">
       <p>Admin</p>
     </RouterLink> -->
-  </footer>
+  </UFooter>
 </template>
-<script lang="ts">
-
-
-</script>
-<style sass>
-footer {
-  display: flex;
-  /* flex-direction: row; */
-  justify-content: space-evenly;
-
-  border: 1px solid black;
-
-  position: fixed;
-  bottom: 0;
-  background-color: white;
-
-  width: 100%;
-}
-</style>
