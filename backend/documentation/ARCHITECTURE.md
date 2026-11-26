@@ -7,6 +7,7 @@ index.ts            # Main Hono app
 dev.ts              # Export for development
 ├── routes/
 │   ├── factory.ts  # Generates shared API routes
+│   ├── manga.ts    # Generic routes covering all tables
 │   ├── films.ts    # Films-specific functions
 │   ├── books.ts    # Books-specific functions
 │   ├── manga.ts    # Manga-specific functions
@@ -32,11 +33,19 @@ dev.ts              # Export for development
 
 | Method   | Path   | Description                                           |
 | -------- | ------ | ----------------------------------------------------- |
-| `GET`    | `/`    | Return all records                                    |
+| `GET`    | `/`    | Return all records of the factory type                |
 | `GET`    | `/:id` | Return a single record                                |
 | `POST`   | `/`    | Save a new record                                     |
 | `PATCH`  | `/:id` | Edit a history record                                 |
 | `DELETE` | `/:id` | Delete a history entry; cascade deletes media if last |
+
+---
+
+### `media.ts`
+
+| Method | Path | Description        |
+| ------ | ---- | ------------------ |
+| `GET`  | `/`  | Return all records |
 
 ---
 

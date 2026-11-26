@@ -2,9 +2,14 @@ import { Hono } from "hono";
 import prisma from "../lib/prisma.js";
 import { MEDIATYPE } from "../generated/prisma/client.js";
 import { sValidator } from "@hono/standard-validator";
-import { filmPostSchema, filmQuerySchema } from "../schemas/films.schema.js";
+import {
+  filmPostSchema,
+  filmQuerySchema,
+  filmSchema,
+} from "../schemas/films.schema.js";
 import { onValidationError } from "../schemas/validations.js";
 import { tmdbGenreMap } from "../lib/tmdbGenres.js";
+import { env } from "../lib/env.js";
 
 /**
  * Custom films only function that are mounted onto the films factory when it is created
@@ -16,15 +21,39 @@ const app = new Hono()
     sValidator("query", filmQuerySchema, onValidationError),
     async (c) => {
       const { query } = c.req.valid("query");
-      
+
       const res = await fetch(
         `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}`,
-        { headers: { Authorization: `Bearer ${process.env.TMDB_TOKEN}` } },
+        { headers: { Authorization: `Bearer ${env.TMDB_TOKEN}` } },
       );
 
-      const data = await res.json();
+      if (!res.ok) {
+        const status = res.status === 404 ? 400 : 502;
+        return c.json({ message: "Film not found on TMDB" }, status);
+      }
 
+      const data = await res.json();
       return c.json(data.results);
+    },
+  )
+  .get(
+    "/credits/:tmdbId",
+    sValidator("param", filmSchema, onValidationError),
+    async (c) => {
+      const { tmdbId } = c.req.valid("param");
+
+      const res = await fetch(
+        `https://api.themoviedb.org/3/movie/${tmdbId}/credits`,
+        { headers: { Authorization: `Bearer ${env.TMDB_TOKEN}` } },
+      );
+
+      if (!res.ok) {
+        const status = res.status === 404 ? 400 : 502;
+        return c.json({ message: "Film credits not found" }, status);
+      }
+
+      const data = await res.json();
+      return c.json(data.cast);
     },
   )
   .post(
