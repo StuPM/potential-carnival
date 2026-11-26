@@ -7,7 +7,9 @@
     </UInput>
 
     <UPopover :content="{ align: 'end' }">
-      <UButton icon="i-lucide-list-filter" :label="String(store.activeFilterCount)" />
+      <!-- <UButton icon="i-lucide-list-filter" :label="String(store.activeFilterCount)" /> -->
+
+      <UButton icon="i-lucide-list-filter" />
 
       <template #content>
         <div class="w-72 p-3 space-y-3 font-mono text-sm">
