@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 342 513" width="342" height="513" role="img" aria-label="No poster available">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#475569"/>
+      <stop offset="1" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="342" height="513" fill="url(#bg)"/>
+
+  <!-- Picture-frame icon -->
+  <g transform="translate(111 186)" fill="none" stroke="#94a3b8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="0" y="0" width="120" height="96" rx="10"/>
+    <circle cx="36" cy="32" r="10"/>
+    <path d="M6 84 L46 50 L72 72 L90 58 L114 80"/>
+  </g>
+
+  <!-- Label -->
+  <text x="171" y="330" text-anchor="middle" fill="#cbd5e1"
+        font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+        font-size="22" letter-spacing="2">NO POSTER</text>
+</svg>
